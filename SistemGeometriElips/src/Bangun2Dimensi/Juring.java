@@ -1,240 +1,111 @@
 package Bangun2Dimensi;
 
 /**
- * Juring: potongan elips dengan sudut tertentu.
- * Extends Elips.
- * 
- * @author Swift
+ * CLASS JURING ELIPS
+ * Child dari Elips
+ * Konsep: bagian (fraction) dari luas elips berdasarkan sudut
  */
 public class Juring extends Elips implements Runnable {
 
-    // ====== ATRIBUT PUBLIC ======
+    // ===== ATRIBUT PUBLIC =====
     public double sudut;
 
-    // ====== CONSTRUCTOR ======
-    public Juring(
-            double semiMayor,
-            double semiMinor,
-            double sudut,
-            int jumlahData
-    ) throws Exception {
-
-        // memanggil constructor parent Elips
-        super(semiMayor, semiMinor, jumlahData);
-
-        if (sudut <= 0 || sudut > 360) {
-
-            throw new IllegalArgumentException(
-                    "[Juring] Sudut juring harus antara 0 - 360 derajat!"
-            );
+    // ===== CONSTRUCTOR (pakai parameter + super + this) =====
+    public Juring(double semiMayor, double semiMinor, double sudut, int jumlahData)throws Exception{
+        super(semiMayor, semiMinor, jumlahData); // memanggil constructor parent (inheritance)
+        // validasi input (exception handling)
+        if(sudut <= 0 || sudut > 360){
+            throw new IllegalArgumentException("[Juring] Sudut harus 0-360");
         }
-
-        this.sudut = sudut;
-
-        this.namaThread = "Thread-Juring";
-
-        System.out.println(
-                "[LOG][Juring] Constructor dipanggil: a="
-                + semiMayor
-                + ", b="
-                + semiMinor
-                + ", sudut="
-                + sudut
-        );
+        this.sudut = sudut; // this digunakan utk assign atribut objek saat ini
+        this.namaThread = "Thread-Juring"; // monitoring thread
+        System.out.println("[LOG][Juring] Constructor dipanggil");
     }
 
-    // ====== GETTER / SETTER ======
-    public double getSudut() {
-        return sudut;
-    }
-
-    public void setSudut(double sudut) {
-        this.sudut = sudut;
-    }
-
-    // ====== OVERRIDE HITUNG LUAS ======
-    @Override
-    public double hitungLuas() {
-
-        if (sudut <= 0 || sudut > 360) {
-
-            throw new ArithmeticException(
-                    "[Juring] Sudut tidak valid!"
-            );
+    // ===== OVERRIDE METHOD LUAS (POLYMORPHISM) =====
+    @Override // non-parameter; pakai atribut
+    public double hitungLuas(){
+        if(sudut <= 0 || sudut > 360){
+            throw new ArithmeticException("[Juring] Sudut tidak valid");
         }
-
-        hasilLuas =
-                (sudut / 360.0)
-                * Math.PI
-                * semiMayor
-                * semiMinor;
-
+        // konsep utama: juring = fraksi dari elips penuh
+        hasilLuas = (sudut/360.0) * super.hitungLuas();
         return hasilLuas;
     }
-
-    // ====== OVERLOADING LUAS SESUAI INTERFACE ======
-    @Override
-    public double hitungLuas(double a, double b) {
-
-        if (a <= 0 || b <= 0) {
-
-            throw new IllegalArgumentException(
-                    "[Juring] Parameter harus positif!"
-            );
+    
+    // ===== OVERLOADING LUAS (sesuai interface) =====
+    @Override 
+    // pakai input manual elips
+    public double hitungLuas(double a, double b){
+        if(a <= 0 || b <= 0){
+            throw new IllegalArgumentException("[Juring] Parameter tidak valid");
         }
-
-        return Math.PI * a * b;
+        return super.hitungLuas(a,b); // reuse logic parent (tidak duplikasi)
+    }
+    // hitung full manual tanpa state
+    public double hitungLuas(double a, double b, double sudutDeg){
+        if(a <= 0 || b <= 0 || sudutDeg <= 0 || sudutDeg > 360){
+            throw new IllegalArgumentException("[Juring] Input tidak valid");
+        }
+        return (sudutDeg/360.0) * super.hitungLuas(a,b);
     }
 
-    // ====== OVERLOADING KHUSUS JURING ======
-    public double hitungLuas(
-            double a,
-            double b,
-            double sudutDeg
-    ) {
-
-        if (a <= 0 || b <= 0) {
-
-            throw new IllegalArgumentException(
-                    "[Juring] Dimensi harus positif!"
-            );
-        }
-
-        if (sudutDeg <= 0 || sudutDeg > 360) {
-
-            throw new IllegalArgumentException(
-                    "[Juring] Sudut tidak valid!"
-            );
-        }
-
-        return (sudutDeg / 360.0)
-                * Math.PI
-                * a
-                * b;
-    }
-
-    // ====== HITUNG KELILING ======
+    // ===== OVERRIDE KELILING =====
     @Override
-    public double hitungKeliling() {
-
+    public double hitungKeliling(){
         return super.hitungKeliling();
     }
-
-    // ====== OVERLOADING KELILING ======
     @Override
-    public double hitungKeliling(double a, double b) {
-
+    public double hitungKeliling(double a, double b){
         return super.hitungKeliling(a, b);
     }
 
-    // ====== TAMPIL INFO ======
-    public void tampilInfo() {
-
+    // ===== TAMPIL INFO (MONITORING OUTPUT) =====
+    public void tampilInfo(){
         System.out.println("=== JURING ELIPS ===");
-
-        System.out.println(
-                "Semi Mayor (a) : "
-                + semiMayor
-        );
-
-        System.out.println(
-                "Semi Minor (b) : "
-                + semiMinor
-        );
-
-        System.out.println(
-                "Sudut          : "
-                + sudut
-                + " derajat"
-        );
-
+        System.out.println("Semi Mayor (a) = "+semiMayor);
+        System.out.println("Semi Minor (b) = "+semiMinor);
+        System.out.println("Sudut = "+sudut);
         try {
-
-            System.out.printf(
-                    "Luas Juring    : %.4f%n",
-                    hitungLuas()
-            );
-
-            System.out.printf(
-                    "Keliling       : %.4f%n",
-                    hitungKeliling()
-            );
-
-        } catch (Exception e) {
-
-            System.out.println(
-                    "[ERROR] tampilInfo: "
-                    + e.getMessage()
-            );
+            System.out.printf("Luas Juring = %.4f%n",hitungLuas());
+            System.out.printf("Keliling Juring = %.4f%n",hitungKeliling());
+        } catch(Exception e){
+            System.out.println("[ERROR] "+e.getMessage());
         }
     }
 
-    // ====== MULTITHREADING ======
+    // ===== THREAD (RUNNABLE IMPLEMENTATION) =====
     @Override
-    public void run() {
-
+    public void run(){
         try {
-
             statusThread = "RUNNING";
-
             progress = 0;
 
-            System.out.println(
-                    "[" + namaThread
-                    + "] START – hitung Juring"
-            );
-
-            for (int i = 1; i <= jumlahData; i++) {
-
-                hasilLuas = hitungLuas();
-
+            System.out.println("["+namaThread+"] START");
+            for(int i=1; i <= jumlahData; i++){
+                // simulasi proses hitung
+                hitungLuas();
                 hitungKeliling();
 
                 Thread.sleep(1);
 
-                progress = (i * 100) / jumlahData;
-
-                if (progress % 25 == 0
-                        && progress > 0) {
-
-                    System.out.println(
-                            "[" + namaThread
-                            + "] Progress: "
-                            + progress + "%"
-                    );
+                // monitoring progress
+                progress=(i * 100)/jumlahData;
+                if(progress%25 == 0 && progress > 0){
+                    System.out.println("["+namaThread+"] "+progress+"%");
                 }
             }
-
-            progress = 100;
-
             statusThread = "DONE";
+            progress = 100;
+            System.out.println("["+namaThread+"] FINISH");
 
-            System.out.println(
-                    "[" + namaThread
-                    + "] DONE – Luas="
-                    + String.format("%.4f", hasilLuas)
-            );
-
-        } catch (InterruptedException ie) {
-
+        } catch(InterruptedException e){
             statusThread = "INTERRUPTED";
-
             Thread.currentThread().interrupt();
 
-            System.out.println(
-                    "[" + namaThread
-                    + "] INTERRUPTED"
-            );
-
-        } catch (Exception e) {
-
+        } catch(Exception e){
             statusThread = "ERROR";
-
-            System.out.println(
-                    "[" + namaThread
-                    + "] ERROR: "
-                    + e.getMessage()
-            );
+            System.out.println(e.getMessage());
         }
     }
 }
