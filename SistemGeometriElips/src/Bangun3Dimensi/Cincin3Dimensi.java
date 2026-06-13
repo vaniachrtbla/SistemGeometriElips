@@ -32,10 +32,6 @@ public class Cincin3Dimensi extends BolaElips implements Runnable {
         System.out.println("[LOG][Cincin3Dimensi] Constructor dipanggil: rDalam=" + radiusDalam);
     }
 
-    // ====== GETTER / SETTER ======
-    public double getRadiusDalam() { return radiusDalam; }
-    public void   setRadiusDalam(double v) { this.radiusDalam = v; }
-
     // ====== OVERRIDE HITUNG VOLUME (tanpa parameter) – throw Exception ======
     @Override
     public double hitungVolume() throws ArithmeticException {
@@ -43,7 +39,7 @@ public class Cincin3Dimensi extends BolaElips implements Runnable {
         if (semiMayor <= 0 || semiMinor <= 0 || semiAxisC <= 0 || radiusDalam <= 0) {
             throw new ArithmeticException("[Cincin3Dimensi] Dimensi tidak valid saat hitungVolume!");
         }
-        double volumeLuar  = (4.0 / 3.0) * Math.PI * semiMayor * semiMinor * semiAxisC;
+        double volumeLuar = super.hitungVolume();
         double volumeDalam = Math.PI * radiusDalam * radiusDalam * (2 * semiAxisC);
         hasilVolume = volumeLuar - volumeDalam;
         if (hasilVolume < 0) hasilVolume = 0;
@@ -56,7 +52,7 @@ public class Cincin3Dimensi extends BolaElips implements Runnable {
         if (a <= 0 || b <= 0 || c <= 0 || rDalam <= 0) {
             throw new Exception("[Cincin3Dimensi] Semua dimensi harus positif!");
         }
-        double vLuar  = (4.0 / 3.0) * Math.PI * a * b * c;
+        double vLuar = super.hitungVolume(a,b,c);
         double vDalam = Math.PI * rDalam * rDalam * (2 * c);
         double hasil  = vLuar - vDalam;
         if (hasil < 0) {
@@ -68,7 +64,6 @@ public class Cincin3Dimensi extends BolaElips implements Runnable {
     // ====== TAMPIL INFO ======
     @Override
     public void tampilInfo() {
-
         System.out.println("=== CINCIN 3 DIMENSI ===");
         System.out.println("Semi Mayor (a)  : " + semiMayor);
         System.out.println("Semi Minor (b)  : " + semiMinor);
@@ -93,7 +88,6 @@ public class Cincin3Dimensi extends BolaElips implements Runnable {
             System.out.println("[" + namaThread + "] START – hitung Cincin3D, jumlahData=" + jumlahData);
 
             for (int i = 1; i <= jumlahData; i++) {
-
                 hasilLuas   = hitungLuas();
                 hasilVolume = hitungVolume();
                 Thread.sleep(1);
@@ -103,7 +97,6 @@ public class Cincin3Dimensi extends BolaElips implements Runnable {
                     System.out.println("[" + namaThread + "] Progress: " + progress + "%");
                 }
             }
-
             progress = 100;
             statusThread = "DONE";
             System.out.println("[" + namaThread + "] DONE – Volume=" + String.format("%.4f", hasilVolume));
