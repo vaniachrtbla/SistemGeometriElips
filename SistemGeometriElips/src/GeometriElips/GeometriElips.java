@@ -552,9 +552,9 @@ public class GeometriElips extends JFrame {
                 PrismaElips pe = (PrismaElips) bg;
                 modelPrisma.addRow(new Object[]{
                     nama,
-                    fmt(e.getSemiMayor()),
-                    fmt(e.getSemiMinor()),
-                    fmt(pe.getTinggi()),
+                    fmt(e.semiMayor),
+                    fmt(e.semiMinor),
+                    fmt(pe.tinggi),
                     fmt4(luas),
                     fmt4(volume)
                 });
