@@ -15,6 +15,7 @@ public class Elips implements BangunGeometri, Runnable {
     public String namaThread;
     public int jumlahData;
     public double hasilLuas;
+    public double hasilKeliling;
     public String statusThread;
     public int progress;
 
@@ -44,6 +45,7 @@ public class Elips implements BangunGeometri, Runnable {
 
         // inisialisasi hasil & array
         this.hasilLuas = 0;
+        this.hasilKeliling = 0;
         this.dataSemiMayor = new double[jumlahData];
         this.dataSemiMinor = new double[jumlahData];
         this.dataHasilLuas = new double[jumlahData];
@@ -59,52 +61,64 @@ public class Elips implements BangunGeometri, Runnable {
     }
 
     // ====== HITUNG LUAS ======
-    
     // rumus luas elips = πab
     @Override
     public double hitungLuas() {
+
         if (semiMayor <= 0 || semiMinor <= 0)
             throw new ArithmeticException("[Elips] Dimensi tidak valid saat hitungLuas!");
+
         hasilLuas = Math.PI * semiMayor * semiMinor;
+
         return hasilLuas;
     }
 
     // overloading luas dengan parameter
     @Override
     public double hitungLuas(double a, double b) {
+
         if (a <= 0 || b <= 0)
             throw new IllegalArgumentException("[Elips] Parameter hitungLuas harus positif!");
-        return Math.PI * a * b;
+
+        hasilLuas = Math.PI * a * b;
+
+        return hasilLuas;
     }
 
+
     // ====== HITUNG KELILING ======
-    
+
     // memakai pendekatan Ramanujan
     @Override
     public double hitungKeliling() {
+
         if (semiMayor <= 0 || semiMinor <= 0)
             throw new ArithmeticException("[Elips] Dimensi tidak valid saat hitungKeliling!");
 
         double h = Math.pow(semiMayor - semiMinor, 2)
                  / Math.pow(semiMayor + semiMinor, 2);
 
-        return Math.PI * (semiMayor + semiMinor)
-             * (1 + (3 * h) / (10 + Math.sqrt(4 - 3 * h)));
+        hasilKeliling = Math.PI * (semiMayor + semiMinor)
+                       * (1 + (3 * h) / (10 + Math.sqrt(4 - 3 * h)));
+
+        return hasilKeliling;
     }
 
     // overloading keliling dengan parameter
     @Override
     public double hitungKeliling(double a, double b) {
+
         if (a <= 0 || b <= 0)
             throw new IllegalArgumentException("[Elips] Parameter hitungKeliling harus positif!");
 
         double h = Math.pow(a - b, 2)
                  / Math.pow(a + b, 2);
 
-        return Math.PI * (a + b)
-             * (1 + (3 * h) / (10 + Math.sqrt(4 - 3 * h)));
-    }
+        hasilKeliling = Math.PI * (a + b)
+                       * (1 + (3 * h) / (10 + Math.sqrt(4 - 3 * h)));
 
+        return hasilKeliling;
+    }
     // ====== THREAD ======
     @Override
     public void run() {
