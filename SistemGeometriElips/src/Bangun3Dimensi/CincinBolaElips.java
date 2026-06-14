@@ -31,9 +31,9 @@ public class CincinBolaElips extends BolaElips implements Runnable {
             throw new Exception("[Cincin3Dimensi] Semua dimensi harus positif!");
         double luasLuar = super.hitungLuas(a, b, c);
         double luasDalam = 2 * Math.PI * rDalam * (2 * c);
-        double hasil = luasLuar - luasDalam;
-        if (hasil < 0) throw new Exception("[Cincin3Dimensi] Radius dalam terlalu besar!");
-        return hasil;
+        double hasilLuas = luasLuar - luasDalam;
+        if (hasilLuas < 0) throw new Exception("[Cincin3Dimensi] Radius dalam terlalu besar!");
+        return hasilLuas;
     }
 
     @Override
@@ -51,9 +51,9 @@ public class CincinBolaElips extends BolaElips implements Runnable {
             throw new Exception("[Cincin3Dimensi] Semua dimensi harus positif!");
         double vLuar = super.hitungVolume(a, b, c);
         double vDalam = Math.PI * rDalam * rDalam * (2 * c);
-        double hasil = vLuar - vDalam;
-        if (hasil < 0) throw new Exception("[Cincin3Dimensi] Radius dalam terlalu besar!");
-        return hasil;
+        double hasilVolume = vLuar - vDalam;
+        if (hasilVolume < 0) throw new Exception("[Cincin3Dimensi] Radius dalam terlalu besar!");
+        return hasilVolume;
     }
 
     @Override

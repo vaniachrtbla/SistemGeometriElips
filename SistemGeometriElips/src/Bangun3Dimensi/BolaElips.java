@@ -64,8 +64,7 @@ public class BolaElips extends Elips implements Runnable {
         if (semiMayor <= 0 || semiMinor <= 0 || semiAxisC <= 0)
             throw new IllegalArgumentException(
                     "[BolaElips] Dimensi tidak valid saat hitungVolume!");
-        hasilVolume =
-                (4.0 / 3.0)* Math.PI* semiMayor * semiMinor* semiAxisC;
+        hasilVolume = (4.0 / 3.0)* Math.PI* semiMayor * semiMinor* semiAxisC;
         return hasilVolume;
     }
 
@@ -75,9 +74,7 @@ public class BolaElips extends Elips implements Runnable {
         if (a <= 0 || b <= 0 || c <= 0)
             throw new IllegalArgumentException(
                     "[BolaElips] Dimensi harus positif!");
-
-        hasilVolume =
-                (4.0 / 3.0)* Math.PI* a* b* c;
+        hasilVolume =(4.0 / 3.0)* Math.PI* a* b* c;
         return hasilVolume;
     }
 
