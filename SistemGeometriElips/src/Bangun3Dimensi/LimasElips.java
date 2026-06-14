@@ -82,22 +82,6 @@ public class LimasElips extends Elips implements Runnable {
         return (1.0 / 3.0) * Math.PI * a * b * t;
     }
 
-    // ====== TAMPIL INFO ======
-    @Override
-    public void tampilInfo() {
-
-        System.out.println("=== LIMAS ELIPS ===");
-        System.out.println("Semi Mayor (a) : " + semiMayor);
-        System.out.println("Semi Minor (b) : " + semiMinor);
-        System.out.println("Tinggi         : " + tinggi);
-        try {
-            System.out.printf("Luas Permukaan : %.4f%n", hitungLuas());
-            System.out.printf("Volume         : %.4f%n", hitungVolume());
-        } catch (Exception e) {
-            System.out.println("[ERROR] tampilInfo: " + e.getMessage());
-        }
-    }
-
     // ====== MULTITHREADING – RUNNABLE ======
     @Override
     public void run() {

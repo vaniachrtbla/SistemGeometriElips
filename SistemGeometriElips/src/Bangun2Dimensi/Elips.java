@@ -119,26 +119,6 @@ public class Elips implements BangunGeometri, Runnable {
                 * (1 + (3 * h) / (10 + Math.sqrt(4 - 3 * h)));
     }
 
-    // ====== TAMPIL INFO ======
-    public void tampilInfo() {
-
-        System.out.println("=== ELIPS ===");
-        System.out.println("Semi Mayor (a) : " + semiMayor);
-        System.out.println("Semi Minor (b) : " + semiMinor);
-
-        try {
-            System.out.printf("Luas      : %.4f%n", hitungLuas());
-            System.out.printf("Keliling  : %.4f%n", hitungKeliling());
-
-        } catch (Exception e) {
-
-            System.out.println(
-                    "[ERROR] tampilInfo: "
-                    + e.getMessage()
-            );
-        }
-    }
-
     // ====== THREAD ======
     @Override
     public void run() {

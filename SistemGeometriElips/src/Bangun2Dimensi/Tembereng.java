@@ -78,22 +78,6 @@ public class Tembereng extends Elips implements Runnable {
         return super.hitungKeliling(a, b);
     }
 
-    // ===== TAMPIL INFO =====
-    public void tampilInfo() {
-
-        System.out.println("=== TEMBERENG ELIPS ===");
-        System.out.println("a = " + semiMayor);
-        System.out.println("b = " + semiMinor);
-        System.out.println("sudut = " + sudut);
-
-        try {
-            System.out.printf("Luas = %.4f%n", hitungLuas());
-            System.out.printf("Keliling = %.4f%n", hitungKeliling());
-        } catch (Exception e) {
-            System.out.println("[ERROR] " + e.getMessage());
-        }
-    }
-
     // ===== THREAD (SAMA STYLE JURING & CINCIN) =====
     @Override
     public void run() {

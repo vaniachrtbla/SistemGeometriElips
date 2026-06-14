@@ -78,23 +78,6 @@ public class Cincin extends Elips implements Runnable {
         return super.hitungKeliling(a, b);
     }
 
-    // ====== TAMPIL INFO ======
-    public void tampilInfo() {
-
-        System.out.println("=== CINCIN ELIPS ===");
-        System.out.println("Semi Mayor Luar (a) : " + semiMayor);
-        System.out.println("Semi Minor Luar (b) : " + semiMinor);
-        System.out.println("Semi Mayor Dalam    : " + semiMayorDalam);
-        System.out.println( "Semi Minor Dalam    : " + semiMinorDalam);
-
-        try {
-            System.out.printf("Luas Cincin         : %.4f%n", hitungLuas());
-            System.out.printf("Keliling Elips      : %.4f%n", hitungKeliling());
-        } catch (Exception e) {
-            System.out.println("[ERROR] tampilInfo: " + e.getMessage());
-        }
-    }
-
     // ====== MULTITHREADING ======
     @Override
     public void run() {

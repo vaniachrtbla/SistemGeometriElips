@@ -77,23 +77,6 @@ package Bangun3Dimensi;
             return Math.pow(rasio, 2) * volumePenuh;
         }
 
-        // ====== TAMPIL INFO ======
-        @Override
-        public void tampilInfo() {
-
-            System.out.println("=== TEMBERENG BOLA ELIPS ===");
-            System.out.println("a = " + semiMayor);
-            System.out.println("b = " + semiMinor);
-            System.out.println("c = " + semiAxisC);
-            System.out.println("h = " + tinggiTembereng);
-            try {
-                System.out.printf("Luas Permukaan : %.4f%n", hitungLuas());
-                System.out.printf("Volume         : %.4f%n", hitungVolume());
-            } catch (Exception e) {
-                System.out.println("[ERROR] " + e.getMessage());
-            }
-        }
-
         // ====== THREAD (MONITORING) ======
         @Override
         public void run() {
