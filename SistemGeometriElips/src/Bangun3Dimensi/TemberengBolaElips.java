@@ -34,6 +34,23 @@ package Bangun3Dimensi;
                 + tinggiTembereng
             );
         }
+        
+        @Override
+        public double hitungLuas() {
+            return super.hitungLuas();
+        }
+        
+        @Override
+        public double hitungLuas(double a, double b) {
+
+        if (a <= 0 || b <= 0) {
+        throw new IllegalArgumentException(
+            "[TemberengBolaElips] parameter tidak valid"
+        );
+        }
+
+        return super.hitungLuas(a, b);
+        }
 
         // ====== OVERRIDE VOLUME ======
         @Override
@@ -69,7 +86,6 @@ package Bangun3Dimensi;
             System.out.println("b = " + semiMinor);
             System.out.println("c = " + semiAxisC);
             System.out.println("h = " + tinggiTembereng);
-
             try {
                 System.out.printf("Luas Permukaan : %.4f%n", hitungLuas());
                 System.out.printf("Volume         : %.4f%n", hitungVolume());
