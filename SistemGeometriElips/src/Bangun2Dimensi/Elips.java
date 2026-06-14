@@ -55,51 +55,6 @@ public class Elips implements BangunGeometri, Runnable {
         );
     }
 
-    // ====== GETTER / SETTER ======
-    public double getSemiMayor() {
-        return semiMayor;
-    }
-
-    public void setSemiMayor(double semiMayor) {
-        this.semiMayor = semiMayor;
-    }
-
-    public double getSemiMinor() {
-        return semiMinor;
-    }
-
-    public void setSemiMinor(double semiMinor) {
-        this.semiMinor = semiMinor;
-    }
-
-    public String getNamaThread() {
-        return namaThread;
-    }
-
-    public void setNamaThread(String namaThread) {
-        this.namaThread = namaThread;
-    }
-
-    public int getJumlahData() {
-        return jumlahData;
-    }
-
-    public void setJumlahData(int jumlahData) {
-        this.jumlahData = jumlahData;
-    }
-
-    public double getHasilLuas() {
-        return hasilLuas;
-    }
-
-    public String getStatusThread() {
-        return statusThread;
-    }
-
-    public int getProgress() {
-        return progress;
-    }
-
     // ====== HITUNG LUAS ======
     @Override
     public double hitungLuas() {
