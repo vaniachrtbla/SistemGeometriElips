@@ -23,39 +23,62 @@ public class BolaElips extends Elips implements Runnable {
         System.out.println("[LOG][BolaElips] Constructor dipanggil: a=" + semiMayor + ", b=" + semiMinor + ", c=" + semiAxisC);
     }
 
+    // ====== HITUNG LUAS ======
     @Override
     public double hitungLuas() {
+
         if (semiMayor <= 0 || semiMinor <= 0 || semiAxisC <= 0)
-            throw new ArithmeticException("[BolaElips] Dimensi tidak valid saat hitungLuas!");
+            throw new ArithmeticException(
+                    "[BolaElips] Dimensi tidak valid saat hitungLuas!");
         double p = 1.6075;
         hasilLuas = 4 * Math.PI * Math.pow(
-            (Math.pow(semiMayor, p) * Math.pow(semiMinor, p)
-            + Math.pow(semiMayor, p) * Math.pow(semiAxisC, p)
-            + Math.pow(semiMinor, p) * Math.pow(semiAxisC, p)) / 3.0, 1.0 / p);
+                (
+                    Math.pow(semiMayor, p) * Math.pow(semiMinor, p)
+                  + Math.pow(semiMayor, p) * Math.pow(semiAxisC, p)
+                  + Math.pow(semiMinor, p) * Math.pow(semiAxisC, p)
+                ) / 3.0,
+                1.0 / p
+        );
         return hasilLuas;
     }
 
-    public double hitungLuas(double a, double b, double c) throws Exception {
+    // OVERLOADING
+    public double hitungLuas(double a, double b, double c) {
         if (a <= 0 || b <= 0 || c <= 0)
-            throw new Exception("[BolaElips] Semua dimensi harus positif!");
+            throw new IllegalArgumentException(
+                    "[BolaElips] Semua dimensi harus positif!");
         double p = 1.6075;
-        return 4 * Math.PI * Math.pow(
-            (Math.pow(a, p) * Math.pow(b, p)
-            + Math.pow(a, p) * Math.pow(c, p)
-            + Math.pow(b, p) * Math.pow(c, p)) / 3.0, 1.0 / p);
+        hasilLuas = 4 * Math.PI * Math.pow(
+                (
+                    Math.pow(a, p) * Math.pow(b, p)
+                  + Math.pow(a, p) * Math.pow(c, p)
+                  + Math.pow(b, p) * Math.pow(c, p)
+                ) / 3.0,
+                1.0 / p
+        );
+        return hasilLuas;
     }
 
+    // ====== HITUNG VOLUME ======
     public double hitungVolume() {
         if (semiMayor <= 0 || semiMinor <= 0 || semiAxisC <= 0)
-            throw new IllegalArgumentException("[BolaElips] Dimensi tidak valid saat hitungVolume!");
-        hasilVolume = (4.0 / 3.0) * Math.PI * semiMayor * semiMinor * semiAxisC;
+            throw new IllegalArgumentException(
+                    "[BolaElips] Dimensi tidak valid saat hitungVolume!");
+        hasilVolume =
+                (4.0 / 3.0)* Math.PI* semiMayor * semiMinor* semiAxisC;
         return hasilVolume;
     }
 
+    // OVERLOADING
     public double hitungVolume(double a, double b, double c) {
+
         if (a <= 0 || b <= 0 || c <= 0)
-            throw new IllegalArgumentException("[BolaElips] Dimensi harus positif!");
-        return (4.0 / 3.0) * Math.PI * a * b * c;
+            throw new IllegalArgumentException(
+                    "[BolaElips] Dimensi harus positif!");
+
+        hasilVolume =
+                (4.0 / 3.0)* Math.PI* a* b* c;
+        return hasilVolume;
     }
 
     @Override
