@@ -4,13 +4,13 @@ package Bangun2Dimensi;
  * Tembereng: bagian elips (juring - segitiga).
  * Konsep: fraksi elips dikurangi segitiga pusat.
  */
-public class Tembereng extends Elips implements Runnable {
+public class TemberengElips extends Elips implements Runnable {
 
     // ===== ATRIBUT PUBLIC =====
     public double sudut;
 
     // ===== CONSTRUCTOR =====
-    public Tembereng(double semiMayor, double semiMinor, double sudut, int jumlahData) throws Exception {
+    public TemberengElips(double semiMayor, double semiMinor, double sudut, int jumlahData) throws Exception {
 
         super(semiMayor, semiMinor, jumlahData);
 
