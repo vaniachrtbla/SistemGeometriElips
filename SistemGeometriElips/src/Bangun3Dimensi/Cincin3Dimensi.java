@@ -35,7 +35,6 @@ public class Cincin3Dimensi extends BolaElips implements Runnable {
     // ====== OVERRIDE HITUNG VOLUME (tanpa parameter) – throw Exception ======
     @Override
     public double hitungVolume() throws ArithmeticException {
-
         if (semiMayor <= 0 || semiMinor <= 0 || semiAxisC <= 0 || radiusDalam <= 0) {
             throw new ArithmeticException("[Cincin3Dimensi] Dimensi tidak valid saat hitungVolume!");
         }
@@ -55,9 +54,7 @@ public class Cincin3Dimensi extends BolaElips implements Runnable {
         double vLuar = super.hitungVolume(a,b,c);
         double vDalam = Math.PI * rDalam * rDalam * (2 * c);
         double hasil  = vLuar - vDalam;
-        if (hasil < 0) {
-            throw new Exception("[Cincin3Dimensi] Radius dalam terlalu besar!");
-        }
+        if (hasil < 0) {throw new Exception("[Cincin3Dimensi] Radius dalam terlalu besar!");}
         return hasil;
     }
 
