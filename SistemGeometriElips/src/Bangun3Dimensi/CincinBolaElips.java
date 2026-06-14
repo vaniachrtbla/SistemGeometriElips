@@ -7,13 +7,13 @@ package Bangun3Dimensi;
  * override dengan throw Exception, try-catch, thread log.
  * @author Swift
  */
-public class Cincin3Dimensi extends BolaElips implements Runnable {
+public class CincinBolaElips extends BolaElips implements Runnable {
 
     // ====== ATRIBUT PUBLIC ======
     public double radiusDalam;
 
     // ====== CONSTRUCTOR DENGAN PARAMETER (satu-satunya, pakai super eksplisit) ======
-    public Cincin3Dimensi(double semiMayor, double semiMinor,
+    public CincinBolaElips(double semiMayor, double semiMinor,
                           double semiAxisC, double radiusDalam,
                           int jumlahData) throws Exception {
 
@@ -117,22 +117,6 @@ public class Cincin3Dimensi extends BolaElips implements Runnable {
         double hasil  = vLuar - vDalam;
         if (hasil < 0) {throw new Exception("[Cincin3Dimensi] Radius dalam terlalu besar!");}
         return hasil;
-    }
-
-    // ====== TAMPIL INFO ======
-    @Override
-    public void tampilInfo() {
-        System.out.println("=== CINCIN 3 DIMENSI ===");
-        System.out.println("Semi Mayor (a)  : " + semiMayor);
-        System.out.println("Semi Minor (b)  : " + semiMinor);
-        System.out.println("Semi Axis C (c) : " + semiAxisC);
-        System.out.println("Radius Dalam    : " + radiusDalam);
-        try {
-            System.out.printf("Luas Permukaan  : %.4f%n", hitungLuas());
-            System.out.printf("Volume Cincin   : %.4f%n", hitungVolume());
-        } catch (Exception e) {
-            System.out.println("[ERROR] tampilInfo: " + e.getMessage());
-        }
     }
 
     // ====== MULTITHREADING – RUNNABLE ======

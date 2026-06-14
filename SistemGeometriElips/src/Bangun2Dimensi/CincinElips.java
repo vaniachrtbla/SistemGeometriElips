@@ -6,14 +6,14 @@ package Bangun2Dimensi;
  * 
  * @author Swift
  */
-public class Cincin extends Elips implements Runnable {
+public class CincinElips extends Elips implements Runnable {
 
     // ====== ATRIBUT PUBLIC ======
     public double semiMayorDalam;
     public double semiMinorDalam;
 
     // ====== CONSTRUCTOR ======
-    public Cincin(double semiMayorLuar, double semiMinorLuar, double semiMayorDalam, double semiMinorDalam, int jumlahData
+    public CincinElips(double semiMayorLuar, double semiMinorLuar, double semiMayorDalam, double semiMinorDalam, int jumlahData
     ) throws Exception {
 
         // memanggil constructor parent Elips
@@ -76,23 +76,6 @@ public class Cincin extends Elips implements Runnable {
     @Override
     public double hitungKeliling(double a, double b) {
         return super.hitungKeliling(a, b);
-    }
-
-    // ====== TAMPIL INFO ======
-    public void tampilInfo() {
-
-        System.out.println("=== CINCIN ELIPS ===");
-        System.out.println("Semi Mayor Luar (a) : " + semiMayor);
-        System.out.println("Semi Minor Luar (b) : " + semiMinor);
-        System.out.println("Semi Mayor Dalam    : " + semiMayorDalam);
-        System.out.println( "Semi Minor Dalam    : " + semiMinorDalam);
-
-        try {
-            System.out.printf("Luas Cincin         : %.4f%n", hitungLuas());
-            System.out.printf("Keliling Elips      : %.4f%n", hitungKeliling());
-        } catch (Exception e) {
-            System.out.println("[ERROR] tampilInfo: " + e.getMessage());
-        }
     }
 
     // ====== MULTITHREADING ======

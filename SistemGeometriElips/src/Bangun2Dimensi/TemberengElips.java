@@ -4,13 +4,13 @@ package Bangun2Dimensi;
  * Tembereng: bagian elips (juring - segitiga).
  * Konsep: fraksi elips dikurangi segitiga pusat.
  */
-public class Tembereng extends Elips implements Runnable {
+public class TemberengElips extends Elips implements Runnable {
 
     // ===== ATRIBUT PUBLIC =====
     public double sudut;
 
     // ===== CONSTRUCTOR =====
-    public Tembereng(double semiMayor, double semiMinor, double sudut, int jumlahData) throws Exception {
+    public TemberengElips(double semiMayor, double semiMinor, double sudut, int jumlahData) throws Exception {
 
         super(semiMayor, semiMinor, jumlahData);
 
@@ -76,22 +76,6 @@ public class Tembereng extends Elips implements Runnable {
     @Override
     public double hitungKeliling(double a, double b) {
         return super.hitungKeliling(a, b);
-    }
-
-    // ===== TAMPIL INFO =====
-    public void tampilInfo() {
-
-        System.out.println("=== TEMBERENG ELIPS ===");
-        System.out.println("a = " + semiMayor);
-        System.out.println("b = " + semiMinor);
-        System.out.println("sudut = " + sudut);
-
-        try {
-            System.out.printf("Luas = %.4f%n", hitungLuas());
-            System.out.printf("Keliling = %.4f%n", hitungKeliling());
-        } catch (Exception e) {
-            System.out.println("[ERROR] " + e.getMessage());
-        }
     }
 
     // ===== THREAD (SAMA STYLE JURING & CINCIN) =====
