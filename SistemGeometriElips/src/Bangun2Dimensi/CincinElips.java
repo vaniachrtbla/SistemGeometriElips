@@ -19,32 +19,59 @@ public class CincinElips extends Elips implements Runnable {
         System.out.println("[LOG][Cincin] Constructor dipanggil: aLuar=" + semiMayorLuar + ", aDalam=" + semiMayorDalam);
     }
 
+    // ====== HITUNG LUAS ======
+
     @Override
     public double hitungLuas() {
-        if (semiMayor <= 0 || semiMinor <= 0 || semiMayorDalam <= 0 || semiMinorDalam <= 0)
+
+        if (semiMayor <= 0 || semiMinor <= 0
+                || semiMayorDalam <= 0 || semiMinorDalam <= 0)
             throw new ArithmeticException("[Cincin] Dimensi tidak valid!");
-        hasilLuas = super.hitungLuas() - super.hitungLuas(semiMayorDalam, semiMinorDalam);
+        // luas luar - luas dalam
+        hasilLuas =
+                super.hitungLuas()
+                - super.hitungLuas(semiMayorDalam, semiMinorDalam);
         return hasilLuas;
     }
 
+    // OVERLOADING
+    public double hitungLuas(
+            double aLuar,
+            double bLuar,
+            double aDalam,
+            double bDalam) {
+        if (aLuar <= 0 || bLuar <= 0
+                || aDalam <= 0 || bDalam <= 0)
+            throw new IllegalArgumentException(
+                    "[Cincin] Semua dimensi harus positif!");
+        hasilLuas = super.hitungLuas(aLuar, bLuar) - super.hitungLuas(aDalam, bDalam);
+        return hasilLuas;
+    }
+
+    // ====== HITUNG KELILING ======
     @Override
-    public double hitungLuas(double a, double b) {
+    public double hitungKeliling() {
+        if (semiMayor <= 0 || semiMinor <= 0
+                || semiMayorDalam <= 0 || semiMinorDalam <= 0)
+            throw new ArithmeticException("[Cincin] Dimensi tidak valid!");
+        // keliling luar + keliling dalam
+        hasilKeliling =
+                super.hitungKeliling()
+                + super.hitungKeliling(semiMayorDalam, semiMinorDalam);
+        return hasilKeliling;
+    }
+
+    // OVERLOADING
+    @Override
+    public double hitungKeliling(double a, double b) {
         if (a <= 0 || b <= 0)
-            throw new IllegalArgumentException("[Cincin] Parameter harus positif!");
-        return super.hitungLuas(a, b);
+            throw new IllegalArgumentException("[Cincin] Parameter tidak valid");
+        // memakai dimensi dalam object
+        hasilKeliling =
+                super.hitungKeliling(a, b)
+                + super.hitungKeliling(semiMayorDalam, semiMinorDalam);
+        return hasilKeliling;
     }
-
-    public double hitungLuas(double aLuar, double bLuar, double aDalam, double bDalam) {
-        if (aLuar <= 0 || bLuar <= 0 || aDalam <= 0 || bDalam <= 0)
-            throw new IllegalArgumentException("[Cincin] Semua dimensi harus positif!");
-        return super.hitungLuas(aLuar, bLuar) - super.hitungLuas(aDalam, bDalam);
-    }
-
-    @Override
-    public double hitungKeliling() { return super.hitungKeliling(); }
-
-    @Override
-    public double hitungKeliling(double a, double b) { return super.hitungKeliling(a, b); }
 
     @Override
     public void run() {
@@ -64,12 +91,9 @@ public class CincinElips extends Elips implements Runnable {
                 dataSemiMayor[i] = aL;
                 dataSemiMinor[i] = bL;
                 dataHasilLuas[i] = hitungLuas(aL, bL, aD, bD);
-
                 if (Thread.interrupted()) throw new InterruptedException();
-                
                 progress = ((i + 1) * 100) / jumlahData;
             }
-
             progress = 100;
             statusThread = "DONE";
             System.out.println("[" + namaThread + "] DONE");
