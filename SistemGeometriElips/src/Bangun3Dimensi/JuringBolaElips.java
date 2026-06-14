@@ -25,15 +25,35 @@ public class JuringBolaElips extends BolaElips implements Runnable {
         System.out.println("[LOG] JuringBolaElips dibuat: sudut = " + sudut);
     }
 
-    // ====== OVERRIDE VOLUME (POLYMORPHISM CORE) ======
+    // ====== OVERRIDE LUAS P DAN VOLUME (POLYMORPHISM CORE) ======
+    @Override
+    public double hitungLuas() {
+        double luasPenuh = super.hitungLuas(); // luas permukaan bola elips
+        hasilLuas = (sudut / 360.0) * luasPenuh;
+        return hasilLuas;
+    }
+    
     @Override
     public double hitungVolume() {
-        double volumePenuh = super.hitungVolume(); // reuse parent logic
+        double volumePenuh = super.hitungVolume(); // reuse parent logic; volume bola elips
         hasilVolume = (sudut / 360.0) * volumePenuh;
         return hasilVolume;
-    }
+    } 
+   
+    // ====== OVERLOADING LUAS P DAN VOLUME  (MANUAL INPUT) ======
+    public double hitungLuas(double a, double b, double c, double sudutDeg) {
+        if (a <= 0 || b <= 0 || c <= 0 || sudutDeg <= 0 || sudutDeg > 360) {
+            throw new IllegalArgumentException("Parameter tidak valid!");
+        }
+        double p = 1.6075;
+        double ap = Math.pow(a, p);
+        double bp = Math.pow(b, p);
+        double cp = Math.pow(c, p);
 
-    // ====== OVERLOADING VOLUME ======
+        double luasPenuh = 4 * Math.PI * Math.pow((ap * bp + ap * cp + bp * cp) / 3.0, 1.0 / p);
+        return (sudutDeg / 360.0) * luasPenuh;
+    }
+    
     public double hitungVolume(double a, double b, double c, double sudutDeg) {
         if (a <= 0 || b <= 0 || c <= 0 || sudutDeg <= 0 || sudutDeg > 360) {
             throw new IllegalArgumentException(
@@ -53,6 +73,7 @@ public class JuringBolaElips extends BolaElips implements Runnable {
         System.out.println("Semi Axis (c)   : " + semiAxisC);
         System.out.println("Sudut           : " + sudut);        
         try {
+            System.out.printf("Luas Permukaan  : %.4f%n", hitungLuas());
             System.out.printf("Volume Juring   : %.4f%n", hitungVolume());
         } catch (Exception e) {
             System.out.println("[ERROR] tampilInfo: " + e.getMessage());
@@ -66,8 +87,9 @@ public class JuringBolaElips extends BolaElips implements Runnable {
             statusThread = "RUNNING";
             progress = 0;           
             System.out.println("[" + namaThread + "] START");            
-            for (int i = 1; i <= jumlahData; i++) {
-                hitungVolume(); // polymorphism call
+            for (int i = 1; i <= jumlahData; i++) {                
+                hitungLuas(); // polymorphism call
+                hitungVolume();                 
                 Thread.sleep(1);
                 progress = (i * 100) / jumlahData;
                 if (progress % 25 == 0 && progress > 0) {
