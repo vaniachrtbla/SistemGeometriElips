@@ -21,13 +21,6 @@ public class JuringElips extends Elips implements Runnable {
         return hasilLuas;
     }
 
-    @Override
-    public double hitungLuas(double a, double b) {
-        if (a <= 0 || b <= 0)
-            throw new IllegalArgumentException("[Juring] Parameter tidak valid");
-        return super.hitungLuas(a, b);
-    }
-
     public double hitungLuas(double a, double b, double sudutDeg) {
         if (a <= 0 || b <= 0 || sudutDeg <= 0 || sudutDeg > 360)
             throw new IllegalArgumentException("[Juring] Input tidak valid");

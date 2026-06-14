@@ -51,10 +51,6 @@ public class Elips implements BangunGeometri, Runnable {
         System.out.println("[LOG][Elips] Constructor dipanggil: a=" + semiMayor + ", b=" + semiMinor);
     }
 
-    // ====== GETTER/SETTER ======
-    public String getNamaThread() { return namaThread; }
-    public void setNamaThread(String nama) { this.namaThread = nama; }
-
     // ====== VARIASI RANDOM ======
     
     // menghasilkan variasi 50%-150% dari nilai asli

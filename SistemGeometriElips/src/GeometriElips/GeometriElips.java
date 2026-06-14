@@ -205,7 +205,7 @@ public class GeometriElips extends JFrame {
 
     private void monitorProgress(Elips bangun, Thread th) {
         new Thread(() -> {
-            JProgressBar pb = mapProgress.get(bangun.getNamaThread());
+            JProgressBar pb = mapProgress.get(bangun.namaThread);
             int lastValue = -1;
             while (th.isAlive()) {
                 final int val = bangun.progress;
@@ -228,7 +228,7 @@ public class GeometriElips extends JFrame {
                 if ("ERROR".equals(status) || "INTERRUPTED".equals(status))
                     pb.setForeground(new Color(198, 40, 40));
             });
-        }, "Monitor-" + bangun.getNamaThread()).start();
+        }, "Monitor-" + bangun.namaThread).start();
     }
 
     private JPanel buatTabHasil() {
@@ -333,39 +333,42 @@ public class GeometriElips extends JFrame {
             btnMulai.setEnabled(false);
             lblStatus.setText("Status: membangun objek & thread...");
 
-            // Buat objek
+           // Buat objek
             Elips elips = new Elips(a, b, jumlahData);
-            elips.setNamaThread("Elips");
+            elips.namaThread = "Elips";
 
             JuringElips juring = new JuringElips(a, b, 90, jumlahData);
-            juring.setNamaThread("JuringElips");
+            juring.namaThread = "JuringElips";
 
             TemberengElips tembereng = new TemberengElips(a, b, 120, jumlahData);
-            tembereng.setNamaThread("TemberengElips");
+            tembereng.namaThread = "TemberengElips";
 
             CincinElips cincin = new CincinElips(a, b, a * 0.4, b * 0.4, jumlahData);
-            cincin.setNamaThread("CincinElips");
+            cincin.namaThread = "CincinElips";
 
             BolaElips bola = new BolaElips(a, b, c, jumlahData);
-            bola.setNamaThread("BolaElips");
+            bola.namaThread = "BolaElips";
 
             JuringBolaElips juringBola = new JuringBolaElips(a, b, c, 120, jumlahData);
-            juringBola.setNamaThread("JuringBolaElips");
+            juringBola.namaThread = "JuringBolaElips";
 
-            TemberengBolaElips temberengBola = new TemberengBolaElips(a, b, c, c * 0.5, jumlahData);
-            temberengBola.setNamaThread("TemberengBolaElips");
+            TemberengBolaElips temberengBola =
+                    new TemberengBolaElips(a, b, c, c * 0.5, jumlahData);
+            temberengBola.namaThread = "TemberengBolaElips";
 
-            CincinBolaElips cincin3D = new CincinBolaElips(a, b, c, rDalam, jumlahData);
-            cincin3D.setNamaThread("CincinBolaElips");
+            CincinBolaElips cincin3D =
+                    new CincinBolaElips(a, b, c, rDalam, jumlahData);
+            cincin3D.namaThread = "CincinBolaElips";
 
             PrismaElips prisma = new PrismaElips(a, b, tPrisma, jumlahData);
-            prisma.setNamaThread("PrismaElips");
+            prisma.namaThread = "PrismaElips";
 
             LimasElips limas = new LimasElips(a, b, tLimas, jumlahData);
-            limas.setNamaThread("LimasElips");
+            limas.namaThread = "LimasElips";
 
-            LimasElipsTerpancung limasTerpancung = new LimasElipsTerpancung(a, b, tLimas, a2, b2, jumlahData);
-            limasTerpancung.setNamaThread("LimasElipsTerpancung");
+            LimasElipsTerpancung limasTerpancung =
+                    new LimasElipsTerpancung(a, b, tLimas, a2, b2, jumlahData);
+            limasTerpancung.namaThread = "LimasElipsTerpancung";
 
             BangunGeometri[] semuaBangun = {
                 elips, juring, tembereng, cincin,
@@ -378,8 +381,8 @@ public class GeometriElips extends JFrame {
 
             for (BangunGeometri bg : semuaBangun) {
                 Elips e = (Elips) bg;
-                buatProgressBar(e.getNamaThread());
-                Thread th = new Thread((Runnable) bg, e.getNamaThread());
+                buatProgressBar(e.namaThread);
+                Thread th = new Thread((Runnable) bg, e.namaThread);
                 threads.add(th);
                 daftarBangun.add(e);
             }
@@ -600,16 +603,23 @@ public class GeometriElips extends JFrame {
             try { new JuringElips(6, 4, 400, 1); } catch (Exception ex) { System.out.println("[CATCH] " + ex.getMessage()); }
 
             System.out.println("\n--- MULTITHREADING ---");
-            Elips t1Obj = new Elips(6, 4, 5);
-            t1Obj.setNamaThread("Thread-Demo-Elips");
-            PrismaElips t2Obj = new PrismaElips(6, 4, 10, 5);
-            t2Obj.setNamaThread("Thread-Demo-Prisma");
-            Thread t1 = new Thread(t1Obj, t1Obj.getNamaThread());
-            Thread t2 = new Thread(t2Obj, t2Obj.getNamaThread());
-            t1.start(); t2.start();
-            t1.join(); t2.join();
-            System.out.println("Semua thread demo selesai!");
 
+            Elips t1Obj = new Elips(6, 4, 5);
+            t1Obj.namaThread = "Thread-Demo-Elips";
+
+            PrismaElips t2Obj = new PrismaElips(6, 4, 10, 5);
+            t2Obj.namaThread = "Thread-Demo-Prisma";
+
+            Thread t1 = new Thread(t1Obj, t1Obj.namaThread);
+            Thread t2 = new Thread(t2Obj, t2Obj.namaThread);
+
+            t1.start();
+            t2.start();
+
+            t1.join();
+            t2.join();
+
+            System.out.println("Semua thread demo selesai!");
         } catch (Exception ex) {
             System.out.println("[MAIN ERROR] " + ex.getMessage());
         }
