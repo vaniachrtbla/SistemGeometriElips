@@ -97,7 +97,7 @@ public class Elips implements BangunGeometri, Runnable {
                 dataHasilLuas[i] = hitungLuas(a, b);
 
                 if (Thread.interrupted()) throw new InterruptedException();
-                Thread.sleep(1);
+                
                 progress = ((i + 1) * 100) / jumlahData;
             }
 

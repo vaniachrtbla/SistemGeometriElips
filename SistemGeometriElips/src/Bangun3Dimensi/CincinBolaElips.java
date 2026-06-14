@@ -77,7 +77,7 @@ public class CincinBolaElips extends BolaElips implements Runnable {
                 dataHasilVolume[i] = Math.max(0, super.hitungVolume(a, b, c) - Math.PI * rD * rD * (2 * c));
 
                 if (Thread.interrupted()) throw new InterruptedException();
-                Thread.sleep(1);
+                
                 progress = ((i + 1) * 100) / jumlahData;
             }
 

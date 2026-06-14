@@ -76,7 +76,7 @@ public class BolaElips extends Elips implements Runnable {
                 dataHasilVolume[i] = hitungVolume(a, b, c);
 
                 if (Thread.interrupted()) throw new InterruptedException();
-                Thread.sleep(1);
+                
                 progress = ((i + 1) * 100) / jumlahData;
             }
 

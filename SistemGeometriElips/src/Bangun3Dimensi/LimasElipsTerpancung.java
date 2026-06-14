@@ -60,7 +60,7 @@ public class LimasElipsTerpancung extends LimasElips implements Runnable {
                 dataHasilVolume[i] = hitungVolume(a1, b1, a2, b2, t);
 
                 if (Thread.interrupted()) throw new InterruptedException();
-                Thread.sleep(1);
+                
                 progress = ((i + 1) * 100) / jumlahData;
             }
 

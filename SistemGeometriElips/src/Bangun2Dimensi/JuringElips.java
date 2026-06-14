@@ -56,7 +56,7 @@ public class JuringElips extends Elips implements Runnable {
                 dataHasilLuas[i] = hitungLuas(a, b, s);
 
                 if (Thread.interrupted()) throw new InterruptedException();
-                Thread.sleep(1);
+                
                 progress = ((i + 1) * 100) / jumlahData;
             }
 

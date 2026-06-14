@@ -67,7 +67,7 @@ public class PrismaElips extends Elips implements Runnable {
                 dataHasilVolume[i] = hitungVolume(a, b, t);
 
                 if (Thread.interrupted()) throw new InterruptedException();
-                Thread.sleep(1);
+                
                 progress = ((i + 1) * 100) / jumlahData;
             }
 
