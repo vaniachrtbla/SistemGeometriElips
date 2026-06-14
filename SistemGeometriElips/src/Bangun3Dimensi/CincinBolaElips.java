@@ -7,13 +7,13 @@ package Bangun3Dimensi;
  * override dengan throw Exception, try-catch, thread log.
  * @author Swift
  */
-public class Cincin3Dimensi extends BolaElips implements Runnable {
+public class CincinBolaElips extends BolaElips implements Runnable {
 
     // ====== ATRIBUT PUBLIC ======
     public double radiusDalam;
 
     // ====== CONSTRUCTOR DENGAN PARAMETER (satu-satunya, pakai super eksplisit) ======
-    public Cincin3Dimensi(double semiMayor, double semiMinor,
+    public CincinBolaElips(double semiMayor, double semiMinor,
                           double semiAxisC, double radiusDalam,
                           int jumlahData) throws Exception {
 

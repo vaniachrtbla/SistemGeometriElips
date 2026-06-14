@@ -2,16 +2,16 @@ package GeometriElips;
 
 import BangunGeometri.BangunGeometri;
 import Bangun2Dimensi.Elips;
-import Bangun2Dimensi.Juring;
-import Bangun2Dimensi.Tembereng;
-import Bangun2Dimensi.Cincin;
+import Bangun2Dimensi.JuringElips;
+import Bangun2Dimensi.TemberengElips;
+import Bangun2Dimensi.CincinElips;
 import Bangun3Dimensi.BolaElips;
 import Bangun3Dimensi.PrismaElips;
 import Bangun3Dimensi.LimasElips;
 import Bangun3Dimensi.LimasElipsTerpancung;
 import Bangun3Dimensi.JuringBolaElips;
 import Bangun3Dimensi.TemberengBolaElips;
-import Bangun3Dimensi.Cincin3Dimensi;
+import Bangun3Dimensi.CincinBolaElips;
 
 import javax.swing.*;
 import javax.swing.border.*;
@@ -389,13 +389,13 @@ public class GeometriElips extends JFrame {
             Elips elips = new Elips(a, b, jumlahData);
             elips.namaThread = "Elips";
 
-            Juring juring = new Juring(a, b, 90, jumlahData);
+            JuringElips juring = new JuringElips(a, b, 90, jumlahData);
             juring.namaThread = "Juring";
 
-            Tembereng tembereng = new Tembereng(a, b, 120, jumlahData);
+            TemberengElips tembereng = new TemberengElips(a, b, 120, jumlahData);
             tembereng.namaThread = "Tembereng";
 
-            Cincin cincin = new Cincin(a, b, a * 0.4, b * 0.4, jumlahData);
+            CincinElips cincin = new CincinElips(a, b, a * 0.4, b * 0.4, jumlahData);
             cincin.namaThread = "Cincin";
 
             BolaElips bola = new BolaElips(a, b, c, jumlahData);
@@ -409,8 +409,8 @@ public class GeometriElips extends JFrame {
 
             temberengBola.namaThread = "TemberengBolaElips";
 
-            Cincin3Dimensi cincin3D =
-                    new Cincin3Dimensi(a, b, c, rDalam, jumlahData);
+            CincinBolaElips cincin3D =
+                    new CincinBolaElips(a, b, c, rDalam, jumlahData);
 
             cincin3D.namaThread = "Cincin3Dimensi";
 
@@ -703,7 +703,7 @@ public class GeometriElips extends JFrame {
                 System.out.println("[CATCH] " + ex.getMessage());
             }
             try {
-                new Juring(6, 4, 400, 1); // sudut tidak valid
+                new JuringElips(6, 4, 400, 1); // sudut tidak valid
             } catch (Exception ex) {
                 System.out.println("[CATCH] " + ex.getMessage());
             }

@@ -5,13 +5,13 @@ package Bangun2Dimensi;
  * Child dari Elips
  * Konsep: bagian (fraction) dari luas elips berdasarkan sudut
  */
-public class Juring extends Elips implements Runnable {
+public class JuringElips extends Elips implements Runnable {
 
     // ===== ATRIBUT PUBLIC =====
     public double sudut;
 
     // ===== CONSTRUCTOR (pakai parameter + super + this) =====
-    public Juring(double semiMayor, double semiMinor, double sudut, int jumlahData)throws Exception{
+    public JuringElips(double semiMayor, double semiMinor, double sudut, int jumlahData)throws Exception{
         super(semiMayor, semiMinor, jumlahData); // memanggil constructor parent (inheritance)
         // validasi input (exception handling)
         if(sudut <= 0 || sudut > 360){

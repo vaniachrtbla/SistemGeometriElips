@@ -6,14 +6,14 @@ package Bangun2Dimensi;
  * 
  * @author Swift
  */
-public class Cincin extends Elips implements Runnable {
+public class CincinElips extends Elips implements Runnable {
 
     // ====== ATRIBUT PUBLIC ======
     public double semiMayorDalam;
     public double semiMinorDalam;
 
     // ====== CONSTRUCTOR ======
-    public Cincin(double semiMayorLuar, double semiMinorLuar, double semiMayorDalam, double semiMinorDalam, int jumlahData
+    public CincinElips(double semiMayorLuar, double semiMinorLuar, double semiMayorDalam, double semiMinorDalam, int jumlahData
     ) throws Exception {
 
         // memanggil constructor parent Elips
