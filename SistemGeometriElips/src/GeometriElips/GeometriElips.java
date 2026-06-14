@@ -11,7 +11,7 @@ import Bangun3Dimensi.LimasElips;
 import Bangun3Dimensi.LimasElipsTerpancung;
 import Bangun3Dimensi.JuringBolaElips;
 import Bangun3Dimensi.TemberengBolaElips;
-import Bangun3Dimensi.Cincin3Dimensi;
+import Bangun3Dimensi.CincinBolaElips;
 
 import javax.swing.*;
 import javax.swing.border.*;
@@ -409,8 +409,8 @@ public class GeometriElips extends JFrame {
 
             temberengBola.namaThread = "TemberengBolaElips";
 
-            Cincin3Dimensi cincin3D =
-                    new Cincin3Dimensi(a, b, c, rDalam, jumlahData);
+            CincinBolaElips cincin3D =
+                    new CincinBolaElips(a, b, c, rDalam, jumlahData);
 
             cincin3D.namaThread = "Cincin3Dimensi";
 
