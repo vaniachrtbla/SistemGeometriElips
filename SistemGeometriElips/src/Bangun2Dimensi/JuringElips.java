@@ -17,14 +17,18 @@ public class JuringElips extends Elips implements Runnable {
     public double hitungLuas() {
         if (sudut <= 0 || sudut > 360)
             throw new ArithmeticException("[Juring] Sudut tidak valid");
+
         hasilLuas = (sudut / 360.0) * super.hitungLuas();
         return hasilLuas;
     }
 
+    // OVERLOADING
     public double hitungLuas(double a, double b, double sudutDeg) {
         if (a <= 0 || b <= 0 || sudutDeg <= 0 || sudutDeg > 360)
             throw new IllegalArgumentException("[Juring] Input tidak valid");
-        return (sudutDeg / 360.0) * super.hitungLuas(a, b);
+
+        hasilLuas = (sudutDeg / 360.0) * super.hitungLuas(a, b);
+        return hasilLuas;
     }
 
     @Override
