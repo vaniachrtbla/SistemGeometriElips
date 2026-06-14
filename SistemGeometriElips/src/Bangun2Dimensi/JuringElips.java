@@ -13,30 +13,59 @@ public class JuringElips extends Elips implements Runnable {
         System.out.println("[LOG][Juring] Constructor dipanggil");
     }
 
+    // ====== HITUNG LUAS ======
+
     @Override
     public double hitungLuas() {
+
         if (sudut <= 0 || sudut > 360)
             throw new ArithmeticException("[Juring] Sudut tidak valid");
 
+        // luas juring = sudut/360 × luas elips
         hasilLuas = (sudut / 360.0) * super.hitungLuas();
+
         return hasilLuas;
     }
 
     // OVERLOADING
     public double hitungLuas(double a, double b, double sudutDeg) {
+
         if (a <= 0 || b <= 0 || sudutDeg <= 0 || sudutDeg > 360)
             throw new IllegalArgumentException("[Juring] Input tidak valid");
-
         hasilLuas = (sudutDeg / 360.0) * super.hitungLuas(a, b);
         return hasilLuas;
     }
 
-    @Override
-    public double hitungKeliling() { return super.hitungKeliling(); }
+
+    // ====== HITUNG KELILING ======
 
     @Override
-    public double hitungKeliling(double a, double b) { return super.hitungKeliling(a, b); }
+    public double hitungKeliling() {
+        if (sudut <= 0 || sudut > 360)
+            throw new ArithmeticException("[Juring] Sudut tidak valid");
+        // keliling elips penuh
+        double kelilingElips = super.hitungKeliling();
+        // panjang busur juring
+        double panjangBusur = (sudut / 360.0) * kelilingElips;
+        // pendekatan 2 sisi radius
+        double radiusRata = (semiMayor + semiMinor) / 2.0;
+        hasilKeliling = panjangBusur + (2 * radiusRata);
+        return hasilKeliling;
+    }
 
+
+    // OVERLOADING
+    @Override
+    public double hitungKeliling(double a, double b) {
+
+        if (a <= 0 || b <= 0)
+            throw new IllegalArgumentException("[Juring] Parameter tidak valid");
+        double kelilingElips = super.hitungKeliling(a, b);
+        double panjangBusur = (sudut / 360.0) * kelilingElips;
+        double radiusRata = (a + b) / 2.0;
+        hasilKeliling = panjangBusur + (2 * radiusRata);
+        return hasilKeliling;
+    }
     @Override
     public void run() {
         try {
