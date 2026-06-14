@@ -33,11 +33,6 @@ public class PrismaElips extends Elips implements Runnable {
                 + ", b=" + semiMinor + ", t=" + tinggi);
     }
 
-    // ====== GETTER / SETTER ======
-    public double getTinggi()      { return tinggi; }
-    public void   setTinggi(double v) { this.tinggi = v; }
-    public double getHasilVolume() { return hasilVolume; }
-
     // ====== OVERRIDE HITUNG LUAS (tanpa parameter) – throw Exception ======
     @Override
     public double hitungLuas() throws ArithmeticException {
@@ -45,11 +40,8 @@ public class PrismaElips extends Elips implements Runnable {
         if (semiMayor <= 0 || semiMinor <= 0 || tinggi <= 0) {
             throw new ArithmeticException("[PrismaElips] Dimensi tidak valid saat hitungLuas!");
         }
-        double luasAlas = Math.PI * semiMayor * semiMinor;
-        double h        = Math.pow(semiMayor - semiMinor, 2)
-                        / Math.pow(semiMayor + semiMinor, 2);
-        double keliling = Math.PI * (semiMayor + semiMinor)
-                        * (1 + (3 * h) / (10 + Math.sqrt(4 - 3 * h)));
+        double luasAlas = super.hitungLuas();
+        double keliling = super.hitungKeliling();
         hasilLuas = (2 * luasAlas) + (keliling * tinggi);
         return hasilLuas;
     }
@@ -60,9 +52,8 @@ public class PrismaElips extends Elips implements Runnable {
         if (a <= 0 || b <= 0 || t <= 0) {
             throw new Exception("[PrismaElips] Semua dimensi harus positif!");
         }
-        double luasAlas = Math.PI * a * b;
-        double h        = Math.pow(a - b, 2) / Math.pow(a + b, 2);
-        double keliling = Math.PI * (a + b) * (1 + (3 * h) / (10 + Math.sqrt(4 - 3 * h)));
+        double luasAlas =super.hitungLuas(a,b);
+        double keliling = super.hitungKeliling(a,b);
         return (2 * luasAlas) + (keliling * t);
     }
 
@@ -72,7 +63,7 @@ public class PrismaElips extends Elips implements Runnable {
         if (semiMayor <= 0 || semiMinor <= 0 || tinggi <= 0) {
             throw new ArithmeticException("[PrismaElips] Dimensi tidak valid saat hitungVolume!");
         }
-        hasilVolume = Math.PI * semiMayor * semiMinor * tinggi;
+        hasilVolume = super.hitungLuas() * tinggi;
         return hasilVolume;
     }
 
@@ -82,23 +73,7 @@ public class PrismaElips extends Elips implements Runnable {
         if (a <= 0 || b <= 0 || t <= 0) {
             throw new Exception("[PrismaElips] Dimensi harus positif!");
         }
-        return Math.PI * a * b * t;
-    }
-
-    // ====== TAMPIL INFO ======
-    @Override
-    public void tampilInfo() {
-
-        System.out.println("=== PRISMA ELIPS ===");
-        System.out.println("Semi Mayor (a) : " + semiMayor);
-        System.out.println("Semi Minor (b) : " + semiMinor);
-        System.out.println("Tinggi         : " + tinggi);
-        try {
-            System.out.printf("Luas Permukaan : %.4f%n", hitungLuas());
-            System.out.printf("Volume         : %.4f%n", hitungVolume());
-        } catch (Exception e) {
-            System.out.println("[ERROR] tampilInfo: " + e.getMessage());
-        }
+        return super.hitungLuas(a,b) * t;
     }
 
     // ====== MULTITHREADING – RUNNABLE ======

@@ -65,24 +65,6 @@ public class LimasElipsTerpancung extends LimasElips implements Runnable {
         return (t / 3.0) * (A1 + A2 + Math.sqrt(A1 * A2));
     }
 
-    // ====== TAMPIL INFO ======
-    @Override
-    public void tampilInfo() {
-
-        System.out.println("=== LIMAS ELIPS TERPANCUNG ===");
-        System.out.println("Semi Mayor Bawah (a) : " + semiMayor);
-        System.out.println("Semi Minor Bawah (b) : " + semiMinor);
-        System.out.println("Semi Mayor Atas (a2) : " + semiMayorAtas);
-        System.out.println("Semi Minor Atas (b2) : " + semiMinorAtas);
-        System.out.println("Tinggi               : " + tinggi);
-        try {
-            System.out.printf("Luas Permukaan       : %.4f%n", hitungLuas());
-            System.out.printf("Volume               : %.4f%n", hitungVolume());
-        } catch (Exception e) {
-            System.out.println("[ERROR] tampilInfo: " + e.getMessage());
-        }
-    }
-
     // ====== MULTITHREADING – RUNNABLE ======
     @Override
     public void run() {

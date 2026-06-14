@@ -81,20 +81,6 @@ public class BolaElips extends Elips implements Runnable {
         return (4.0 / 3.0) * Math.PI * a * b * c;
     }
 
-    // ====== TAMPIL INFO ======
-    public void tampilInfo() {
-
-        System.out.println("=== BOLA ELIPS (Ellipsoid) ===");
-        System.out.println("Semi Mayor (a)  : " + semiMayor);
-        System.out.println("Semi Minor (b)  : " + semiMinor);
-        System.out.println("Semi Axis C (c) : " + semiAxisC);
-        try {
-            System.out.printf("Luas Permukaan  : %.4f%n", hitungLuas());
-            System.out.printf("Volume          : %.4f%n", hitungVolume());
-        } catch (Exception e) {
-            System.out.println("[ERROR] tampilInfo: " + e.getMessage());
-        }
-    }
 
     // ====== MULTITHREADING – RUNNABLE ======
     @Override

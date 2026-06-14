@@ -58,21 +58,6 @@ public class Cincin3Dimensi extends BolaElips implements Runnable {
         return hasil;
     }
 
-    // ====== TAMPIL INFO ======
-    @Override
-    public void tampilInfo() {
-        System.out.println("=== CINCIN 3 DIMENSI ===");
-        System.out.println("Semi Mayor (a)  : " + semiMayor);
-        System.out.println("Semi Minor (b)  : " + semiMinor);
-        System.out.println("Semi Axis C (c) : " + semiAxisC);
-        System.out.println("Radius Dalam    : " + radiusDalam);
-        try {
-            System.out.printf("Luas Permukaan  : %.4f%n", hitungLuas());
-            System.out.printf("Volume Cincin   : %.4f%n", hitungVolume());
-        } catch (Exception e) {
-            System.out.println("[ERROR] tampilInfo: " + e.getMessage());
-        }
-    }
 
     // ====== MULTITHREADING – RUNNABLE ======
     @Override

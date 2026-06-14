@@ -60,20 +60,6 @@ public class Juring extends Elips implements Runnable {
         return super.hitungKeliling(a, b);
     }
 
-    // ===== TAMPIL INFO (MONITORING OUTPUT) =====
-    public void tampilInfo(){
-        System.out.println("=== JURING ELIPS ===");
-        System.out.println("Semi Mayor (a) = "+semiMayor);
-        System.out.println("Semi Minor (b) = "+semiMinor);
-        System.out.println("Sudut = "+sudut);
-        try {
-            System.out.printf("Luas Juring = %.4f%n",hitungLuas());
-            System.out.printf("Keliling Juring = %.4f%n",hitungKeliling());
-        } catch(Exception e){
-            System.out.println("[ERROR] "+e.getMessage());
-        }
-    }
-
     // ===== THREAD (RUNNABLE IMPLEMENTATION) =====
     @Override
     public void run(){

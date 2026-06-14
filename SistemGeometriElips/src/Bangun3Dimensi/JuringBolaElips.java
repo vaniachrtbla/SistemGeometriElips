@@ -64,22 +64,6 @@ public class JuringBolaElips extends BolaElips implements Runnable {
         return (sudutDeg / 360.0) * volumePenuh;
     }
 
-    // ====== INFO OUTPUT ======
-    @Override
-    public void tampilInfo() {
-        System.out.println("=== JURING BOLA ELIPS ===");
-        System.out.println("Semi Mayor (a)  : " + semiMayor);
-        System.out.println("Semi Minor (b)  : " + semiMinor);
-        System.out.println("Semi Axis (c)   : " + semiAxisC);
-        System.out.println("Sudut           : " + sudut);        
-        try {
-            System.out.printf("Luas Permukaan  : %.4f%n", hitungLuas());
-            System.out.printf("Volume Juring   : %.4f%n", hitungVolume());
-        } catch (Exception e) {
-            System.out.println("[ERROR] tampilInfo: " + e.getMessage());
-        }
-    }
-
     // ====== THREAD MONITORING ======
     @Override
     public void run() {
