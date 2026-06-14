@@ -33,10 +33,6 @@ public class BolaElips extends Elips implements Runnable {
                 + ", b=" + semiMinor + ", c=" + semiAxisC);
     }
 
-    // ====== GETTER / SETTER ======
-    public double getSemiAxisC()    { return semiAxisC; }
-    public void   setSemiAxisC(double v) { this.semiAxisC = v; }
-    public double getHasilVolume()  { return hasilVolume; }
 
     // ====== OVERRIDE LUAS PERMUKAAN (tanpa parameter) – throw Exception ======
     @Override

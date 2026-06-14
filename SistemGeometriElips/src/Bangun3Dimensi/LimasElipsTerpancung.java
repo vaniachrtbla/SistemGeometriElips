@@ -36,11 +36,6 @@ public class LimasElipsTerpancung extends LimasElips implements Runnable {
                 + ", b2=" + semiMinorAtas);
     }
 
-    // ====== GETTER / SETTER ======
-    public double getSemiMayorAtas() { return semiMayorAtas; }
-    public void   setSemiMayorAtas(double v) { this.semiMayorAtas = v; }
-    public double getSemiMinorAtas() { return semiMinorAtas; }
-    public void   setSemiMinorAtas(double v) { this.semiMinorAtas = v; }
 
     // ====== OVERRIDE HITUNG VOLUME (tanpa parameter) – throw Exception ======
     @Override

@@ -33,10 +33,6 @@ public class LimasElips extends Elips implements Runnable {
                 + ", b=" + semiMinor + ", t=" + tinggi);
     }
 
-    // ====== GETTER / SETTER ======
-    public double getTinggi()      { return tinggi; }
-    public void   setTinggi(double v) { this.tinggi = v; }
-    public double getHasilVolume() { return hasilVolume; }
 
     // ====== OVERRIDE HITUNG LUAS (tanpa parameter) – throw Exception ======
     @Override

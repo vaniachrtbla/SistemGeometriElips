@@ -542,9 +542,9 @@ public class GeometriElips extends JFrame {
                 BolaElips be = (BolaElips) bg;
                 modelBola.addRow(new Object[]{
                     nama,
-                    fmt(e.getSemiMayor()),
-                    fmt(e.getSemiMinor()),
-                    fmt(be.getSemiAxisC()),
+                    fmt(e.semiMayor),
+                    fmt(e.semiMinor),
+                    fmt(be.semiAxisC),
                     fmt4(luas),
                     fmt4(volume)
                 });
@@ -562,17 +562,17 @@ public class GeometriElips extends JFrame {
                 LimasElips le = (LimasElips) bg;
                 modelLimas.addRow(new Object[]{
                     nama,
-                    fmt(e.getSemiMayor()),
-                    fmt(e.getSemiMinor()),
-                    fmt(le.getTinggi()),
+                    fmt(e.semiMayor),
+                    fmt(e.semiMinor),
+                    fmt(le.tinggi),
                     fmt4(luas),
                     fmt4(volume)
                 });
             } else {
                 modelElips2D.addRow(new Object[]{
                     nama,
-                    fmt(e.getSemiMayor()),
-                    fmt(e.getSemiMinor()),
+                    fmt(e.semiMayor),
+                    fmt(e.semiMinor),
                     fmt4(luas)
                 });
             }
