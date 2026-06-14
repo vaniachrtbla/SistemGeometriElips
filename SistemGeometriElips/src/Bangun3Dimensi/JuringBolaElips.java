@@ -28,14 +28,14 @@ public class JuringBolaElips extends BolaElips implements Runnable {
     // ====== OVERRIDE LUAS P DAN VOLUME (POLYMORPHISM CORE) ======
     @Override
     public double hitungLuas() {
-        double luasPenuh = super.hitungLuas(); // luas permukaan bola elips
+        double luasPenuh = super.hitungLuas(); // reuse parent logic
         hasilLuas = (sudut / 360.0) * luasPenuh;
         return hasilLuas;
     }
     
     @Override
     public double hitungVolume() {
-        double volumePenuh = super.hitungVolume(); // reuse parent logic; volume bola elips
+        double volumePenuh = super.hitungVolume(); // reuse parent logic
         hasilVolume = (sudut / 360.0) * volumePenuh;
         return hasilVolume;
     } 
