@@ -70,6 +70,7 @@ public class JuringBolaElips extends BolaElips implements Runnable {
     @Override
     public void run() {
         try {
+            waktuMulai = System.nanoTime();
             statusThread = "RUNNING";
             progress = 0;
             System.out.println("[" + namaThread + "] START");
@@ -91,8 +92,12 @@ public class JuringBolaElips extends BolaElips implements Runnable {
             }
 
             progress = 100;
+            waktuSelesai = System.nanoTime();
+            durasiDetik = (waktuSelesai - waktuMulai) / 1_000_000_000.0;
             statusThread = "DONE";
-            System.out.println("[" + namaThread + "] DONE");
+            System.out.println("[" + namaThread + "] DONE dalam "
+                + String.format("%.4f", durasiDetik) + " detik"
+            );
 
         } catch (InterruptedException e) {
             statusThread = "INTERRUPTED";

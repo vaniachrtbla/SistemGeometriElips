@@ -69,6 +69,7 @@ public class JuringElips extends Elips implements Runnable {
     @Override
     public void run() {
         try {
+            waktuMulai = System.nanoTime();
             statusThread = "RUNNING";
             progress = 0;
             System.out.println("[" + namaThread + "] START");
@@ -88,9 +89,12 @@ public class JuringElips extends Elips implements Runnable {
             }
 
             progress = 100;
+            waktuSelesai = System.nanoTime();
+            durasiDetik = (waktuSelesai - waktuMulai) / 1_000_000_000.0;
             statusThread = "DONE";
-            System.out.println("[" + namaThread + "] DONE");
-
+            System.out.println("[" + namaThread + "] DONE dalam "
+                + String.format("%.4f", durasiDetik) + " detik"
+            );
         } catch (InterruptedException e) {
             statusThread = "INTERRUPTED";
             Thread.currentThread().interrupt();

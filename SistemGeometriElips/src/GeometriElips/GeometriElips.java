@@ -224,7 +224,9 @@ public class GeometriElips extends JFrame {
             final String status = bangun.statusThread;
             SwingUtilities.invokeLater(() -> {
                 pb.setValue(finalVal);
-                pb.setString(finalVal + "% [" + status + "]");
+                pb.setString(finalVal + "% ["+ status + "] ("
+                    + String.format("%.3f", bangun.durasiDetik)+ " s)"
+                );
                 if ("ERROR".equals(status) || "INTERRUPTED".equals(status))
                     pb.setForeground(new Color(198, 40, 40));
             });
