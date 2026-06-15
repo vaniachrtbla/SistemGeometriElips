@@ -18,25 +18,98 @@ public class LimasElipsTerpancung extends LimasElips implements Runnable {
         this.namaThread = "Thread-LimasTerpancung";
         System.out.println("[LOG][LimasElipsTerpancung] Constructor dipanggil: a2=" + semiMayorAtas + ", b2=" + semiMinorAtas);
     }
+    // ====== HITUNG LUAS ======
+
+    @Override
+    public double hitungLuas() {
+
+        if (semiMayor <= 0 || semiMinor <= 0 || tinggi <= 0
+                || semiMayorAtas <= 0 || semiMinorAtas <= 0)
+
+            throw new ArithmeticException(
+                    "[LimasElipsTerpancung] Dimensi tidak valid!");
+
+        // luas limas penuh dari parent
+        double luasLimasPenuh = super.hitungLuas();
+
+        // luas bagian atas yang dipotong
+        double luasAtas =
+                Math.PI * semiMayorAtas * semiMinorAtas;
+
+        hasilLuas = luasLimasPenuh - luasAtas;
+
+        return hasilLuas;
+    }
+
+    // OVERLOADING
+    public double hitungLuas(
+            double a1,
+            double b1,
+            double a2,
+            double b2,
+            double t) {
+
+        if (a1 <= 0 || b1 <= 0 || a2 <= 0 || b2 <= 0 || t <= 0)
+
+            throw new IllegalArgumentException(
+                    "[LimasElipsTerpancung] Parameter tidak valid!");
+
+        // luas limas penuh
+        double luasLimasPenuh =
+                super.hitungLuas(a1, b1, t);
+
+        // luas atas terpotong
+        double luasAtas =
+                Math.PI * a2 * b2;
+
+        hasilLuas = luasLimasPenuh - luasAtas;
+
+        return hasilLuas;
+    }
+    
+    // ====== HITUNG VOLUME ======
 
     @Override
     public double hitungVolume() {
-        if (semiMayor <= 0 || semiMinor <= 0 || tinggi <= 0 || semiMayorAtas <= 0 || semiMinorAtas <= 0)
-            throw new ArithmeticException("[LimasElipsTerpancung] Dimensi tidak valid saat hitungVolume!");
-        double A1 = Math.PI * semiMayor * semiMinor;
-        double A2 = Math.PI * semiMayorAtas * semiMinorAtas;
-        hasilVolume = (tinggi / 3.0) * (A1 + A2 + Math.sqrt(A1 * A2));
+
+        if (semiMayor <= 0 || semiMinor <= 0 || tinggi <= 0
+                || semiMayorAtas <= 0 || semiMinorAtas <= 0)
+
+            throw new ArithmeticException(
+                    "[LimasElipsTerpancung] Dimensi tidak valid!");
+
+        // volume limas penuh dari parent
+        double volumePenuh = super.hitungVolume();
+
+        // volume bagian atas yang terpotong
+        double volumeAtas =
+                (1.0 / 3.0)
+                * Math.PI
+                * semiMayorAtas
+                * semiMinorAtas
+                * tinggi;
+
+        hasilVolume = volumePenuh - volumeAtas;
+
         return hasilVolume;
     }
 
-    public double hitungVolume(double a1, double b1, double a2, double b2, double t) throws Exception {
-        if (a1 <= 0 || b1 <= 0 || a2 <= 0 || b2 <= 0 || t <= 0)
-            throw new Exception("[LimasElipsTerpancung] Semua dimensi harus positif!");
-        double A1 = Math.PI * a1 * b1;
-        double A2 = Math.PI * a2 * b2;
-        return (t / 3.0) * (A1 + A2 + Math.sqrt(A1 * A2));
-    }
 
+    // OVERLOADING
+    public double hitungVolume(double a1,double b1,double a2,double b2,double t) {
+        if (a1 <= 0 || b1 <= 0 || a2 <= 0 || b2 <= 0 || t <= 0)
+            throw new IllegalArgumentException(
+                    "[LimasElipsTerpancung] Parameter tidak valid!");
+
+        // volume limas penuh
+        double volumePenuh =
+                super.hitungVolume(a1, b1, t);
+
+        // volume atas terpotong
+        double volumeAtas =(1.0 / 3.0)* Math.PI* a2* b2* t;
+        hasilVolume = volumePenuh - volumeAtas;
+        return hasilVolume;
+    }
     @Override
     public void run() {
         try {
@@ -60,7 +133,6 @@ public class LimasElipsTerpancung extends LimasElips implements Runnable {
                 dataHasilVolume[i] = hitungVolume(a1, b1, a2, b2, t);
 
                 if (Thread.interrupted()) throw new InterruptedException();
-                
                 progress = ((i + 1) * 100) / jumlahData;
             }
 
