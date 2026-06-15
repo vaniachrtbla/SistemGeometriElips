@@ -93,6 +93,7 @@ public class TemberengElips extends Elips implements Runnable {
                 dataSemiMayor[i] = a;
                 dataSemiMinor[i] = b;
                 dataHasilLuas[i] = hitungLuas(a, b, s);
+                dataHasilKeliling[i] = hitungKeliling(a, b);
 
                 if (Thread.interrupted()) throw new InterruptedException();
                 
