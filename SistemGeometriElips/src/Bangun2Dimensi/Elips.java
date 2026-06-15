@@ -24,6 +24,10 @@ public class Elips implements BangunGeometri, Runnable {
     public double[] dataSemiMinor;
     public double[] dataHasilLuas;
     public double[] dataHasilKeliling;
+    
+    public long waktuMulai;
+    public long waktuSelesai;
+    public double durasiDetik;
 
     // ====== CONSTRUCTOR ======
     public Elips(double semiMayor, double semiMinor, int jumlahData) throws Exception {
@@ -127,6 +131,7 @@ public class Elips implements BangunGeometri, Runnable {
         try {
 
             // thread mulai berjalan
+            waktuMulai = System.nanoTime();
             statusThread = "RUNNING";
             progress = 0;
 
@@ -158,9 +163,12 @@ public class Elips implements BangunGeometri, Runnable {
 
             // thread selesai
             progress = 100;
+            waktuSelesai = System.nanoTime();
+            durasiDetik = (waktuSelesai - waktuMulai) / 1_000_000_000.0;
             statusThread = "DONE";
-
-            System.out.println("[" + namaThread + "] DONE");
+            System.out.println("[" + namaThread + "] DONE dalam "
+                + String.format("%.4f", durasiDetik) + " detik"
+            );
 
         } catch (InterruptedException e) {
 
