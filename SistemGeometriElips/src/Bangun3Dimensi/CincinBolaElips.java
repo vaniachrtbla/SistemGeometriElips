@@ -1,93 +1,93 @@
 package Bangun3Dimensi;
 
-/**
- * Cincin3Dimensi: bola elips berlubang (torus elips).
- * Extends BolaElips. Atribut public, constructor berparameter satu-satunya,
- * polimorfisme eksplisit via super, overloading hitungVolume,
- * override dengan throw Exception, try-catch, thread log.
- * @author Swift
- */
 public class CincinBolaElips extends BolaElips implements Runnable {
 
-    // ====== ATRIBUT PUBLIC ======
     public double radiusDalam;
 
-    // ====== CONSTRUCTOR DENGAN PARAMETER (satu-satunya, pakai super eksplisit) ======
-    public CincinBolaElips(double semiMayor, double semiMinor,
-                          double semiAxisC, double radiusDalam,
-                          int jumlahData) throws Exception {
-
-        super(semiMayor, semiMinor, semiAxisC, jumlahData); // polimorfisme eksplisit
-
-        if (radiusDalam <= 0) {
+    public CincinBolaElips(double semiMayor, double semiMinor, double semiAxisC,
+                            double radiusDalam, int jumlahData) throws Exception {
+        super(semiMayor, semiMinor, semiAxisC, jumlahData);
+        if (radiusDalam <= 0)
             throw new Exception("[Cincin3Dimensi] Radius dalam harus positif!");
-        }
-        if (radiusDalam >= semiMayor || radiusDalam >= semiMinor) {
+        if (radiusDalam >= semiMayor || radiusDalam >= semiMinor)
             throw new Exception("[Cincin3Dimensi] Radius dalam harus lebih kecil dari semi mayor dan semi minor!");
-        }
-
         this.radiusDalam = radiusDalam;
-        this.namaThread  = "Thread-Cincin3D";
-
+        this.namaThread = "Thread-Cincin3D";
         System.out.println("[LOG][Cincin3Dimensi] Constructor dipanggil: rDalam=" + radiusDalam);
     }
 
-    // ====== OVERRIDE HITUNG VOLUME (tanpa parameter) – throw Exception ======
     @Override
-    public double hitungVolume() throws ArithmeticException {
-        if (semiMayor <= 0 || semiMinor <= 0 || semiAxisC <= 0 || radiusDalam <= 0) {
+    public double hitungLuas() {
+        if (semiMayor <= 0 || semiMinor <= 0 || semiAxisC <= 0 || radiusDalam <= 0)
+            throw new ArithmeticException("[Cincin3Dimensi] Dimensi tidak valid saat hitungLuas!");
+        double luasLuar = super.hitungLuas();
+        double luasDalam = 2 * Math.PI * radiusDalam * (2 * semiAxisC);
+        hasilLuas = Math.max(0, luasLuar - luasDalam);
+        return hasilLuas;
+    }
+
+    public double hitungLuas(double a, double b, double c, double rDalam) throws Exception {
+        if (a <= 0 || b <= 0 || c <= 0 || rDalam <= 0)
+            throw new Exception("[Cincin3Dimensi] Semua dimensi harus positif!");
+        double luasLuar = super.hitungLuas(a, b, c);
+        double luasDalam = 2 * Math.PI * rDalam * (2 * c);
+        double hasilLuas = luasLuar - luasDalam;
+        if (hasilLuas < 0) throw new Exception("[Cincin3Dimensi] Radius dalam terlalu besar!");
+        return hasilLuas;
+    }
+
+    @Override
+    public double hitungVolume() {
+        if (semiMayor <= 0 || semiMinor <= 0 || semiAxisC <= 0 || radiusDalam <= 0)
             throw new ArithmeticException("[Cincin3Dimensi] Dimensi tidak valid saat hitungVolume!");
-        }
         double volumeLuar = super.hitungVolume();
         double volumeDalam = Math.PI * radiusDalam * radiusDalam * (2 * semiAxisC);
-        hasilVolume = volumeLuar - volumeDalam;
-        if (hasilVolume < 0) hasilVolume = 0;
+        hasilVolume = Math.max(0, volumeLuar - volumeDalam);
         return hasilVolume;
     }
 
-    // ====== OVERLOADING VOLUME (dengan parameter) ======
     public double hitungVolume(double a, double b, double c, double rDalam) throws Exception {
-
-        if (a <= 0 || b <= 0 || c <= 0 || rDalam <= 0) {
+        if (a <= 0 || b <= 0 || c <= 0 || rDalam <= 0)
             throw new Exception("[Cincin3Dimensi] Semua dimensi harus positif!");
-        }
-        double vLuar = super.hitungVolume(a,b,c);
+        double vLuar = super.hitungVolume(a, b, c);
         double vDalam = Math.PI * rDalam * rDalam * (2 * c);
-        double hasil  = vLuar - vDalam;
-        if (hasil < 0) {throw new Exception("[Cincin3Dimensi] Radius dalam terlalu besar!");}
-        return hasil;
+        double hasilVolume = vLuar - vDalam;
+        if (hasilVolume < 0) throw new Exception("[Cincin3Dimensi] Radius dalam terlalu besar!");
+        return hasilVolume;
     }
 
-
-    // ====== MULTITHREADING – RUNNABLE ======
     @Override
     public void run() {
-
         try {
             statusThread = "RUNNING";
-            progress     = 0;
+            progress = 0;
+            System.out.println("[" + namaThread + "] START");
 
-            System.out.println("[" + namaThread + "] START – hitung Cincin3D, jumlahData=" + jumlahData);
+            for (int i = 0; i < jumlahData; i++) {
+                double a = (i == 0) ? semiMayor : Math.max(0.01, variasi(semiMayor));
+                double b = (i == 0) ? semiMinor : Math.max(0.01, variasi(semiMinor));
+                double c = (i == 0) ? semiAxisC : Math.max(0.01, variasi(semiAxisC));
+                // Pastikan radiusDalam < min(a,b)
+                double rD = Math.min(radiusDalam, Math.min(a, b) * 0.9);
+                if (rD <= 0) rD = Math.min(a, b) * 0.3;
+                dataSemiMayor[i] = a;
+                dataSemiMinor[i] = b;
+                dataSemiAxisC[i] = c;
+                dataHasilLuas[i] = Math.max(0, super.hitungLuas(a, b, c) - 2 * Math.PI * rD * (2 * c));
+                dataHasilVolume[i] = Math.max(0, super.hitungVolume(a, b, c) - Math.PI * rD * rD * (2 * c));
 
-            for (int i = 1; i <= jumlahData; i++) {
-                hasilLuas   = hitungLuas();
-                hasilVolume = hitungVolume();
-                Thread.sleep(1);
-                progress = (i * 100) / jumlahData;
-
-                if (progress % 25 == 0 && progress > 0 && (i * 100 % jumlahData == 0)) {
-                    System.out.println("[" + namaThread + "] Progress: " + progress + "%");
-                }
+                if (Thread.interrupted()) throw new InterruptedException();
+                
+                progress = ((i + 1) * 100) / jumlahData;
             }
+
             progress = 100;
             statusThread = "DONE";
-            System.out.println("[" + namaThread + "] DONE – Volume=" + String.format("%.4f", hasilVolume));
+            System.out.println("[" + namaThread + "] DONE");
 
         } catch (InterruptedException ie) {
             statusThread = "INTERRUPTED";
             Thread.currentThread().interrupt();
-            System.out.println("[" + namaThread + "] INTERRUPTED");
-
         } catch (Exception e) {
             statusThread = "ERROR";
             System.out.println("[" + namaThread + "] ERROR: " + e.getMessage());

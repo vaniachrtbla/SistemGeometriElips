@@ -1,97 +1,101 @@
 package Bangun2Dimensi;
 
-/**
- * CLASS JURING ELIPS
- * Child dari Elips
- * Konsep: bagian (fraction) dari luas elips berdasarkan sudut
- */
 public class JuringElips extends Elips implements Runnable {
 
-    // ===== ATRIBUT PUBLIC =====
     public double sudut;
 
-    // ===== CONSTRUCTOR (pakai parameter + super + this) =====
-    public JuringElips(double semiMayor, double semiMinor, double sudut, int jumlahData)throws Exception{
-        super(semiMayor, semiMinor, jumlahData); // memanggil constructor parent (inheritance)
-        // validasi input (exception handling)
-        if(sudut <= 0 || sudut > 360){
+    public JuringElips(double semiMayor, double semiMinor, double sudut, int jumlahData) throws Exception {
+        super(semiMayor, semiMinor, jumlahData);
+        if (sudut <= 0 || sudut > 360)
             throw new IllegalArgumentException("[Juring] Sudut harus 0-360");
-        }
-        this.sudut = sudut; // this digunakan utk assign atribut objek saat ini
-        this.namaThread = "Thread-Juring"; // monitoring thread
+        this.sudut = sudut;
+        this.namaThread = "Thread-Juring";
         System.out.println("[LOG][Juring] Constructor dipanggil");
     }
 
-    // ===== OVERRIDE METHOD LUAS (POLYMORPHISM) =====
-    @Override // non-parameter; pakai atribut
-    public double hitungLuas(){
-        if(sudut <= 0 || sudut > 360){
+    // ====== HITUNG LUAS ======
+
+    @Override
+    public double hitungLuas() {
+
+        if (sudut <= 0 || sudut > 360)
             throw new ArithmeticException("[Juring] Sudut tidak valid");
-        }
-        // konsep utama: juring = fraksi dari elips penuh
-        hasilLuas = (sudut/360.0) * super.hitungLuas();
+
+        // luas juring = sudut/360 × luas elips
+        hasilLuas = (sudut / 360.0) * super.hitungLuas();
+
         return hasilLuas;
     }
-    
-    // ===== OVERLOADING LUAS (sesuai interface) =====
-    @Override 
-    // pakai input manual elips
-    public double hitungLuas(double a, double b){
-        if(a <= 0 || b <= 0){
-            throw new IllegalArgumentException("[Juring] Parameter tidak valid");
-        }
-        return super.hitungLuas(a,b); // reuse logic parent (tidak duplikasi)
-    }
-    // hitung full manual tanpa state
-    public double hitungLuas(double a, double b, double sudutDeg){
-        if(a <= 0 || b <= 0 || sudutDeg <= 0 || sudutDeg > 360){
+
+    // OVERLOADING
+    public double hitungLuas(double a, double b, double sudutDeg) {
+
+        if (a <= 0 || b <= 0 || sudutDeg <= 0 || sudutDeg > 360)
             throw new IllegalArgumentException("[Juring] Input tidak valid");
-        }
-        return (sudutDeg/360.0) * super.hitungLuas(a,b);
+        hasilLuas = (sudutDeg / 360.0) * super.hitungLuas(a, b);
+        return hasilLuas;
     }
 
-    // ===== OVERRIDE KELILING =====
+
+    // ====== HITUNG KELILING ======
+
     @Override
-    public double hitungKeliling(){
-        return super.hitungKeliling();
-    }
-    @Override
-    public double hitungKeliling(double a, double b){
-        return super.hitungKeliling(a, b);
+    public double hitungKeliling() {
+        if (sudut <= 0 || sudut > 360)
+            throw new ArithmeticException("[Juring] Sudut tidak valid");
+        // keliling elips penuh
+        double kelilingElips = super.hitungKeliling();
+        // panjang busur juring
+        double panjangBusur = (sudut / 360.0) * kelilingElips;
+        // pendekatan 2 sisi radius
+        double radiusRata = (semiMayor + semiMinor) / 2.0;
+        hasilKeliling = panjangBusur + (2 * radiusRata);
+        return hasilKeliling;
     }
 
-    // ===== THREAD (RUNNABLE IMPLEMENTATION) =====
+
+    // OVERLOADING
     @Override
-    public void run(){
+    public double hitungKeliling(double a, double b) {
+
+        if (a <= 0 || b <= 0)
+            throw new IllegalArgumentException("[Juring] Parameter tidak valid");
+        double kelilingElips = super.hitungKeliling(a, b);
+        double panjangBusur = (sudut / 360.0) * kelilingElips;
+        double radiusRata = (a + b) / 2.0;
+        hasilKeliling = panjangBusur + (2 * radiusRata);
+        return hasilKeliling;
+    }
+    @Override
+    public void run() {
         try {
             statusThread = "RUNNING";
             progress = 0;
+            System.out.println("[" + namaThread + "] START");
 
-            System.out.println("["+namaThread+"] START");
-            for(int i=1; i <= jumlahData; i++){
-                // simulasi proses hitung
-                hitungLuas();
-                hitungKeliling();
+            for (int i = 0; i < jumlahData; i++) {
+                double a = (i == 0) ? semiMayor : Math.max(0.01, variasi(semiMayor));
+                double b = (i == 0) ? semiMinor : Math.max(0.01, variasi(semiMinor));
+                double s = (i == 0) ? sudut : Math.min(360, Math.max(0.01, variasi(sudut)));
+                dataSemiMayor[i] = a;
+                dataSemiMinor[i] = b;
+                dataHasilLuas[i] = hitungLuas(a, b, s);
 
-                Thread.sleep(1);
-
-                // monitoring progress
-                progress=(i * 100)/jumlahData;
-                if(progress%25 == 0 && progress > 0){
-                    System.out.println("["+namaThread+"] "+progress+"%");
-                }
+                if (Thread.interrupted()) throw new InterruptedException();
+                
+                progress = ((i + 1) * 100) / jumlahData;
             }
-            statusThread = "DONE";
-            progress = 100;
-            System.out.println("["+namaThread+"] FINISH");
 
-        } catch(InterruptedException e){
+            progress = 100;
+            statusThread = "DONE";
+            System.out.println("[" + namaThread + "] DONE");
+
+        } catch (InterruptedException e) {
             statusThread = "INTERRUPTED";
             Thread.currentThread().interrupt();
-
-        } catch(Exception e){
+        } catch (Exception e) {
             statusThread = "ERROR";
-            System.out.println(e.getMessage());
+            System.out.println("[" + namaThread + "] ERROR: " + e.getMessage());
         }
     }
 }
