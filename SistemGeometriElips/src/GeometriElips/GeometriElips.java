@@ -236,7 +236,7 @@ public class GeometriElips extends JFrame {
         p.setOpaque(false);
         p.setBorder(BorderFactory.createEmptyBorder(8, 0, 0, 0));
 
-        modelElips2D = buatModel(new String[]{"No", "Bangun", "Semi Mayor (a)", "Semi Minor (b)", "Luas"});
+        modelElips2D = buatModel(new String[]{"No", "Bangun", "Semi Mayor (a)", "Semi Minor (b)", "Luas", "Keliling"});
         modelPrisma  = buatModel(new String[]{"No", "Bangun", "Semi Mayor (a)", "Semi Minor (b)", "Tinggi", "Luas Permukaan", "Volume"});
         modelLimas   = buatModel(new String[]{"No", "Bangun", "Semi Mayor (a)", "Semi Minor (b)", "Tinggi", "Luas Permukaan", "Volume"});
         modelBola    = buatModel(new String[]{"No", "Bangun", "Semi Mayor (a)", "Semi Minor (b)", "Semi Axis C (c)", "Luas Permukaan", "Volume"});
@@ -443,22 +443,22 @@ public class GeometriElips extends JFrame {
             if (bg.getClass() == Elips.class) {
                 Elips e = (Elips) bg;
                 for (int i = 0; i < e.jumlahData; i++)
-                    modelElips2D.addRow(new Object[]{i+1, nama, fmt(e.dataSemiMayor[i]), fmt(e.dataSemiMinor[i]), fmt4(e.dataHasilLuas[i])});
+                    modelElips2D.addRow(new Object[]{i+1, nama, fmt(e.dataSemiMayor[i]), fmt(e.dataSemiMinor[i]), fmt4(e.dataHasilLuas[i]), fmt4(e.dataHasilKeliling[i])});
             }
             else if (bg instanceof JuringElips) {
                 JuringElips j = (JuringElips) bg;
                 for (int i = 0; i < j.jumlahData; i++)
-                    modelElips2D.addRow(new Object[]{i+1, nama, fmt(j.dataSemiMayor[i]), fmt(j.dataSemiMinor[i]), fmt4(j.dataHasilLuas[i])});
+                    modelElips2D.addRow(new Object[]{i+1, nama, fmt(j.dataSemiMayor[i]), fmt(j.dataSemiMinor[i]), fmt4(j.dataHasilLuas[i]), fmt4(j.dataHasilKeliling[i])});
             }
             else if (bg instanceof TemberengElips) {
                 TemberengElips t = (TemberengElips) bg;
                 for (int i = 0; i < t.jumlahData; i++)
-                    modelElips2D.addRow(new Object[]{i+1, nama, fmt(t.dataSemiMayor[i]), fmt(t.dataSemiMinor[i]), fmt4(t.dataHasilLuas[i])});
+                    modelElips2D.addRow(new Object[]{i+1, nama, fmt(t.dataSemiMayor[i]), fmt(t.dataSemiMinor[i]), fmt4(t.dataHasilLuas[i]), fmt4(t.dataHasilKeliling[i])});
             }
             else if (bg instanceof CincinElips) {
                 CincinElips ci = (CincinElips) bg;
                 for (int i = 0; i < ci.jumlahData; i++)
-                    modelElips2D.addRow(new Object[]{i+1, nama, fmt(ci.dataSemiMayor[i]), fmt(ci.dataSemiMinor[i]), fmt4(ci.dataHasilLuas[i])});
+                    modelElips2D.addRow(new Object[]{i+1, nama, fmt(ci.dataSemiMayor[i]), fmt(ci.dataSemiMinor[i]), fmt4(ci.dataHasilLuas[i]), fmt4(ci.dataHasilKeliling[i])});
             }
             else if (bg instanceof PrismaElips) {
                 PrismaElips pr = (PrismaElips) bg;

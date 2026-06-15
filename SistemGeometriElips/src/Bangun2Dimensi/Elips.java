@@ -23,6 +23,7 @@ public class Elips implements BangunGeometri, Runnable {
     public double[] dataSemiMayor;
     public double[] dataSemiMinor;
     public double[] dataHasilLuas;
+    public double[] dataHasilKeliling;
 
     // ====== CONSTRUCTOR ======
     public Elips(double semiMayor, double semiMinor, int jumlahData) throws Exception {
@@ -49,6 +50,7 @@ public class Elips implements BangunGeometri, Runnable {
         this.dataSemiMayor = new double[jumlahData];
         this.dataSemiMinor = new double[jumlahData];
         this.dataHasilLuas = new double[jumlahData];
+        this.dataHasilKeliling = new double[jumlahData];
 
         System.out.println("[LOG][Elips] Constructor dipanggil: a=" + semiMayor + ", b=" + semiMinor);
     }
@@ -144,6 +146,7 @@ public class Elips implements BangunGeometri, Runnable {
 
                 // hitung & simpan luas
                 dataHasilLuas[i] = hitungLuas(a, b);
+                dataHasilKeliling[i] = hitungKeliling(a, b);
 
                 // cek interrupt thread
                 if (Thread.interrupted())
