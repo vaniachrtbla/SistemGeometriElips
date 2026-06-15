@@ -28,7 +28,7 @@ public class BolaElips extends Elips implements Runnable {
     public double hitungLuas() {
 
         if (semiMayor <= 0 || semiMinor <= 0 || semiAxisC <= 0)
-            throw new ArithmeticException(
+            throw new IllegalArgumentException(
                     "[BolaElips] Dimensi tidak valid saat hitungLuas!");
         double p = 1.6075;
         hasilLuas = 4 * Math.PI * Math.pow(

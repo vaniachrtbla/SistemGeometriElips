@@ -14,32 +14,69 @@ public class TemberengBolaElips extends BolaElips implements Runnable {
         System.out.println("[LOG][TemberengBolaElips] Constructor dipanggil: h=" + tinggiTembereng);
     }
 
-    @Override
-    public double hitungLuas() { return super.hitungLuas(); }
+// ====== HITUNG LUAS ======
 
-    @Override
-    public double hitungLuas(double a, double b) {
-        if (a <= 0 || b <= 0)
-            throw new IllegalArgumentException("[TemberengBolaElips] parameter tidak valid");
-        return super.hitungLuas(a, b);
-    }
+        @Override
+        public double hitungLuas() {
 
-    @Override
-    public double hitungVolume() {
-        double rasio = tinggiTembereng / semiAxisC;
-        return Math.pow(rasio, 2) * super.hitungVolume();
-    }
+            if (tinggiTembereng <= 0 || tinggiTembereng > semiAxisC)
+                throw new IllegalArgumentException(
+                        "[TemberengBolaElips] Tinggi tidak valid");
 
-    public double hitungVolume(double a, double b, double c, double h) {
-        if (a <= 0 || b <= 0 || c <= 0 || h <= 0)
-            throw new IllegalArgumentException("[TemberengBolaElips] parameter tidak valid");
-        return Math.pow(h / c, 2) * ((4.0 / 3.0) * Math.PI * a * b * c);
-    }
+            // pendekatan proporsi luas
+            double rasio = tinggiTembereng / semiAxisC;
 
-    public double hitungLuas(double a, double b, double c) throws Exception {
-        return super.hitungLuas(a, b, c);
-    }
+            hasilLuas =
+                    rasio * super.hitungLuas();
 
+            return hasilLuas;
+        }
+
+        // OVERLOADING
+        public double hitungLuas(double a, double b, double c) {
+            if (a <= 0 || b <= 0 || c <= 0)
+                throw new IllegalArgumentException(
+                        "[TemberengBolaElips] Parameter tidak valid");
+            double rasio = tinggiTembereng / c;
+            hasilLuas =
+                    rasio * super.hitungLuas(a, b, c);
+            return hasilLuas;
+        }
+
+        // CUSTOM OVERLOADING
+        public double hitungLuas(double a,double b,double c,double h) throws Exception {
+            if (a <= 0 || b <= 0 || c <= 0 || h <= 0)
+                throw new IllegalArgumentException(
+                        "[TemberengBolaElips] Parameter tidak valid");
+            double rasio = h / c;
+            hasilLuas =
+                    rasio * super.hitungLuas(a, b, c);
+            return hasilLuas;
+        }
+
+        // ====== HITUNG VOLUME ======
+        @Override
+        public double hitungVolume() {
+            if (tinggiTembereng <= 0 || tinggiTembereng > semiAxisC)
+                throw new ArithmeticException(
+                        "[TemberengBolaElips] Tinggi tidak valid");
+            double rasio = tinggiTembereng / semiAxisC;
+            hasilVolume =
+                    Math.pow(rasio, 2)
+                    * super.hitungVolume();
+            return hasilVolume;
+        }
+        // OVERLOADING
+        public double hitungVolume(double a,double b,double c,double h) {
+            if (a <= 0 || b <= 0 || c <= 0 || h <= 0)
+                throw new IllegalArgumentException(
+                        "[TemberengBolaElips] Parameter tidak valid");
+            double rasio = h / c;
+            hasilVolume =
+                    Math.pow(rasio, 2)
+                    * super.hitungVolume(a, b, c);
+            return hasilVolume;
+        }
     @Override
     public void run() {
         try {
