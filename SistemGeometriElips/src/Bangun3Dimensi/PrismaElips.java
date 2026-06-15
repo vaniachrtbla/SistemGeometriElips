@@ -33,7 +33,8 @@ public class PrismaElips extends Elips implements Runnable {
     public double hitungLuas(double a, double b, double t) throws Exception {
         if (a <= 0 || b <= 0 || t <= 0)
             throw new Exception("[PrismaElips] Semua dimensi harus positif!");
-        return (2 * super.hitungLuas(a, b)) + (super.hitungKeliling(a, b) * t);
+        hasilLuas = (2 * super.hitungLuas(a, b)) + (super.hitungKeliling(a, b) * t);
+        return hasilLuas;
     }
 
     public double hitungVolume() {
@@ -46,7 +47,8 @@ public class PrismaElips extends Elips implements Runnable {
     public double hitungVolume(double a, double b, double t) throws Exception {
         if (a <= 0 || b <= 0 || t <= 0)
             throw new Exception("[PrismaElips] Dimensi harus positif!");
-        return super.hitungLuas(a, b) * t;
+        hasilVolume = super.hitungLuas(a, b) * t;
+        return hasilVolume;
     }
 
     @Override
