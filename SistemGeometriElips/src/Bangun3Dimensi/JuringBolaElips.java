@@ -14,32 +14,57 @@ public class JuringBolaElips extends BolaElips implements Runnable {
         System.out.println("[LOG] JuringBolaElips dibuat: sudut=" + sudut);
     }
 
+    // ====== HITUNG LUAS ======
     @Override
     public double hitungLuas() {
-        hasilLuas = (sudut / 360.0) * super.hitungLuas();
+        if (sudut <= 0 || sudut > 360)
+            throw new ArithmeticException(
+                    "[JuringBolaElips] Sudut tidak valid!");
+        hasilLuas =
+                (sudut / 360.0)* super.hitungLuas();
+        return hasilLuas;
+    }
+    // OVERLOADING
+    public double hitungLuas(
+            double a,
+            double b,
+            double c,
+            double sudutDeg) {
+        if (a <= 0 || b <= 0 || c <= 0
+                || sudutDeg <= 0 || sudutDeg > 360)
+            throw new IllegalArgumentException(
+                    "[JuringBolaElips] Parameter tidak valid!");
+        hasilLuas =
+                (sudutDeg / 360.0)
+                * super.hitungLuas(a, b, c);
         return hasilLuas;
     }
 
+
+    // ====== HITUNG VOLUME ======
     @Override
     public double hitungVolume() {
-        hasilVolume = (sudut / 360.0) * super.hitungVolume();
+
+        if (sudut <= 0 || sudut > 360)
+            throw new ArithmeticException(
+                    "[JuringBolaElips] Sudut tidak valid!");
+
+        hasilVolume =
+                (sudut / 360.0)
+                * super.hitungVolume();
+
         return hasilVolume;
     }
-
-    public double hitungLuas(double a, double b, double c, double sudutDeg) {
-        if (a <= 0 || b <= 0 || c <= 0 || sudutDeg <= 0 || sudutDeg > 360)
-            throw new IllegalArgumentException("Parameter tidak valid!");
-        double p = 1.6075;
-        double luasPenuh = 4 * Math.PI * Math.pow(
-            (Math.pow(a, p) * Math.pow(b, p) + Math.pow(a, p) * Math.pow(c, p)
-            + Math.pow(b, p) * Math.pow(c, p)) / 3.0, 1.0 / p);
-        return (sudutDeg / 360.0) * luasPenuh;
-    }
-
-    public double hitungVolume(double a, double b, double c, double sudutDeg) {
-        if (a <= 0 || b <= 0 || c <= 0 || sudutDeg <= 0 || sudutDeg > 360)
-            throw new IllegalArgumentException("[JuringBolaElips] Parameter tidak valid!");
-        return (sudutDeg / 360.0) * ((4.0 / 3.0) * Math.PI * a * b * c);
+    // OVERLOADING
+    public double hitungVolume(double a,double b,double c,double sudutDeg) {
+        if (a <= 0 || b <= 0 || c <= 0
+                || sudutDeg <= 0 || sudutDeg > 360)
+            throw new IllegalArgumentException(
+                    "[JuringBolaElips] Parameter tidak valid!");
+        hasilVolume =
+                (sudutDeg / 360.0)
+                * super.hitungVolume(a, b, c);
+        return hasilVolume;
     }
 
     @Override
