@@ -91,6 +91,7 @@ public class CincinElips extends Elips implements Runnable {
                 dataSemiMayor[i] = aL;
                 dataSemiMinor[i] = bL;
                 dataHasilLuas[i] = hitungLuas(aL, bL, aD, bD);
+                dataHasilKeliling[i] = hitungKeliling(aL, bL);
                 if (Thread.interrupted()) throw new InterruptedException();
                 progress = ((i + 1) * 100) / jumlahData;
             }
