@@ -21,39 +21,66 @@ public class LimasElips extends Elips implements Runnable {
         this.dataHasilVolume = new double[jumlahData];
         System.out.println("[LOG][LimasElips] Constructor dipanggil: a=" + semiMayor + ", b=" + semiMinor + ", t=" + tinggi);
     }
+    // ====== HITUNG LUAS ======
 
     @Override
     public double hitungLuas() {
         if (semiMayor <= 0 || semiMinor <= 0 || tinggi <= 0)
-            throw new ArithmeticException("[LimasElips] Dimensi tidak valid saat hitungLuas!");
-        double luasAlas = Math.PI * semiMayor * semiMinor;
-        double garisA = Math.sqrt(semiMayor * semiMayor + tinggi * tinggi);
-        double garisB = Math.sqrt(semiMinor * semiMinor + tinggi * tinggi);
-        double luasSelimut = Math.PI * semiMayor * garisB / 2 + Math.PI * semiMinor * garisA / 2;
+            throw new ArithmeticException(
+                    "[LimasElips] Dimensi tidak valid saat hitungLuas!");
+        // luas alas dari parent
+        double luasAlas = super.hitungLuas();
+        // garis pelukis
+        double garisA =
+                Math.sqrt(semiMayor * semiMayor + tinggi * tinggi);
+        double garisB =
+                Math.sqrt(semiMinor * semiMinor + tinggi * tinggi);
+        // luas selimut
+        double luasSelimut =
+                (Math.PI * semiMayor * garisB / 2)
+              + (Math.PI * semiMinor * garisA / 2);
+        hasilLuas = luasAlas + luasSelimut;
+        return hasilLuas;
+    }
+    // OVERLOADING
+    public double hitungLuas(double a, double b, double t) {
+        if (a <= 0 || b <= 0 || t <= 0)
+            throw new IllegalArgumentException(
+                    "[LimasElips] Semua dimensi harus positif!");
+        // luas alas dari parent
+        double luasAlas = super.hitungLuas(a, b);
+        double garisA =
+                Math.sqrt(a * a + t * t);
+        double garisB =
+                Math.sqrt(b * b + t * t);
+        double luasSelimut =
+                (Math.PI * a * garisB / 2)
+              + (Math.PI * b * garisA / 2);
         hasilLuas = luasAlas + luasSelimut;
         return hasilLuas;
     }
 
-    public double hitungLuas(double a, double b, double t) throws Exception {
-        if (a <= 0 || b <= 0 || t <= 0)
-            throw new Exception("[LimasElips] Semua dimensi harus positif!");
-        double luasAlas = Math.PI * a * b;
-        double garisA = Math.sqrt(a * a + t * t);
-        double garisB = Math.sqrt(b * b + t * t);
-        return luasAlas + Math.PI * a * garisB / 2 + Math.PI * b * garisA / 2;
-    }
-
+    // ====== HITUNG VOLUME ======
     public double hitungVolume() {
         if (semiMayor <= 0 || semiMinor <= 0 || tinggi <= 0)
-            throw new ArithmeticException("[LimasElips] Dimensi tidak valid saat hitungVolume!");
-        hasilVolume = (1.0 / 3.0) * Math.PI * semiMayor * semiMinor * tinggi;
+            throw new ArithmeticException(
+                    "[LimasElips] Dimensi tidak valid saat hitungVolume!");
+        hasilVolume =
+                (1.0 / 3.0)
+                * super.hitungLuas()
+                * tinggi;
         return hasilVolume;
     }
-
-    public double hitungVolume(double a, double b, double t) throws Exception {
+    // OVERLOADING
+    public double hitungVolume(double a, double b, double t) {
         if (a <= 0 || b <= 0 || t <= 0)
-            throw new Exception("[LimasElips] Dimensi harus positif!");
-        return (1.0 / 3.0) * Math.PI * a * b * t;
+            throw new IllegalArgumentException(
+                    "[LimasElips] Dimensi harus positif!");
+        hasilVolume =
+                (1.0 / 3.0)
+                * super.hitungLuas(a, b)
+                * t;
+        return hasilVolume;
     }
 
     @Override
